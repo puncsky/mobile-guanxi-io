@@ -1,0 +1,115 @@
+{
+  "name": "mobile-onefx-boilerplate",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+    "_note": "npm run lint && npm run tsc-test && ",
+    "test": "npm run lint && jest",
+    "jest": "jest",
+    "typecheck": "tsc --noEmit",
+    "lint": "pretty-quick --staged && tslint --fix --project tsconfig.json -t stylish",
+    "qualitycheck": "npm-run-all typecheck tslint",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"src/{*.ts,**/*.ts,*.tsx,**/*.tsx}\"\n"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.ts?(x)",
+      "**/?(*.)+(spec|test).ts?(x)"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "tsx"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "jsx": "react"
+        }
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "dependencies": {
+    "@ant-design/react-native": "3.1.10",
+    "@expo/samples": "2.1.1",
+    "@expo/vector-icons": "^10.0.0",
+    "@react-native-community/async-storage": "1.6.3",
+    "@types/deep-extend": "^0.4.31",
+    "@types/expo": "31.0.8",
+    "@types/i18n-js": "^3.0.1",
+    "@types/react-navigation": "2.13.10",
+    "@types/react-redux": "7.0.0",
+    "@types/use-subscription": "^1.0.0",
+    "apollo-cache-inmemory": "1.6.3",
+    "apollo-client": "2.6.4",
+    "apollo-link": "1.2.13",
+    "apollo-link-http": "1.5.16",
+    "axios": "0.19.0",
+    "buffer": "^5.4.3",
+    "deep-extend": "^0.6.0",
+    "expo": "^35.0.0",
+    "expo-analytics": "^1.0.13",
+    "expo-asset": "~7.0.0",
+    "expo-constants": "~7.0.0",
+    "expo-font": "~7.0.0",
+    "expo-haptics": "~7.0.0",
+    "expo-localization": "~7.0.0",
+    "expo-mixpanel-analytics": "0.0.7",
+    "expo-permissions": "~7.0.0",
+    "expo-store-review": "~1.0.0",
+    "expo-web-browser": "~7.0.1",
+    "graphql": "14.5.8",
+    "graphql-tag": "2.10.1",
+    "i18n-js": "3.3.0",
+    "isomorphic-unfetch": "3.0.0",
+    "jwt-decode": "^2.2.0",
+    "react": "16.8.3",
+    "react-apollo": "3.1.3",
+    "react-dom": "16.8.3",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-appearance": "~0.1.0",
+    "react-native-gesture-handler": "~1.3.0",
+    "react-native-web": "^0.11.7",
+    "react-navigation": "^3.12.0",
+    "react-redux": "6.0.0",
+    "redux": "4.0.1",
+    "redux-devtools-extension": "2.13.8",
+    "redux-persist": "5.10.0",
+    "redux-thunk": "2.3.0",
+    "sentry-expo": "~2.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "23.3.13",
+    "@types/react": "^16.8.23",
+    "@types/react-native": "^0.57.65",
+    "@types/react-test-renderer": "16.8.3",
+    "babel-plugin-import": "1.11.0",
+    "babel-preset-expo": "^7.0.0",
+    "husky": "3.0.0",
+    "jest": "24.8.0",
+    "jest-expo": "^35.0.0",
+    "prettier": "1.16.4",
+    "pretty-quick": "1.11.1",
+    "react-test-renderer": "16.8.3",
+    "ts-jest": "24.2.0",
+    "tslint": "5.12.1",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-microsoft-contrib": "6.0.0",
+    "tslint-require-connnect-typing": "1.0.1",
+    "typescript": "^3.4.5"
+  },
+  "private": true
+}
