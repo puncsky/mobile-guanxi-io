@@ -5,5 +5,5 @@ export const config = {
     googleTid: "TODO",
     mixpanelProjectToken: "TODO"
   },
-  serverUrl: "https://guigu.io/"
+  serverUrl: __DEV__ ? "https://a39fcadf.ngrok.io/" : "https://guanxi.io/"
 };
