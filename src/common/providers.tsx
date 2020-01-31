@@ -11,6 +11,7 @@ export function Providers({
   children: JSX.Element | Array<JSX.Element>;
 }): JSX.Element {
   return (
+    //@ts-ignore
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <ApolloProvider client={apolloClient}>{children}</ApolloProvider>

@@ -1,207 +1,230 @@
-import Button from "@ant-design/react-native/lib/button";
-import Modal from "@ant-design/react-native/lib/modal";
-import { WebBrowser } from "expo";
+/* tslint:disable:no-any */
+// @ts-ignore
+import * as Icon from "@expo/vector-icons";
+import * as lodash from "lodash";
 import * as React from "react";
+import { Query, QueryResult } from "react-apollo";
 import {
-  Image,
-  ScrollView,
+  FlatList,
+  RefreshControl,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View
 } from "react-native";
-import i18n from "../translations";
-
+import { NavigationScreenProps } from "react-navigation";
+import { connect } from "react-redux";
+import { analytics } from "../common/analytics";
+import { apolloClient } from "../common/apollo-client";
+import { colors } from "../common/colors";
+import { GET_IO_ARTICLE } from "../common/gqls";
+import { isEnglish } from "../common/is-english";
+import { AppState } from "../common/store";
+import { ArticleItem } from "../components/article-item";
+import {
+  EmptyView,
+  LoadingFinishedFooterView,
+  LoadingFooterView,
+  NetworkErrorView,
+  Separator
+} from "../components/list-components";
 import { NavigationBar } from "../components/navigation-bar";
-import { MonoText } from "../components/styled-text";
-type State = {
-  shouldDisplayModal: boolean;
+import i18n from "../translations";
+import { Article } from "../types/article";
+import { TFuncType } from "../types/screen-props";
+
+type FlatListItem = {
+  item: Article;
 };
 
-export class HomeScreen extends React.Component<{}, State> {
-  public state: State = {
-    shouldDisplayModal: false
+type HomeScreenProps = {
+  navigation: any;
+  locale: string;
+};
+
+type HomeScreenState = {
+  refreshing: boolean;
+  loadFinished: boolean;
+};
+
+export const HomeScreen = connect((state: AppState) => {
+  return {
+    locale: state.base.locale
   };
-
-  private readonly onCloseModal = () => {
-    this.setState({ shouldDisplayModal: false });
-  };
-
-  public render(): JSX.Element {
-    const imgSource = __DEV__
-      ? require("../assets/images/robot-dev.png")
-      : require("../assets/images/robot-prod.png");
-    return (
-      <View style={styles.container}>
-        <NavigationBar title={i18n.t("home")} />
-        <ScrollView style={styles.container}>
-          <View style={styles.welcomeContainer}>
-            <Image source={imgSource} style={styles.welcomeImage} />
-          </View>
-
-          <View style={styles.getStartedContainer}>
-            {this.maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View
-              style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-            >
-              <MonoText style={styles.codeHighlightText}>
-                screens/HomeScreen.js
-              </MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity
-              onPress={this.handleHelpPress}
-              style={styles.helpLink}
-            >
-              <Text style={styles.helpLinkText}>
-                Help, it didn’t automatically reload!
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <Modal
-            transparent={false}
-            visible={this.state.shouldDisplayModal}
-            animationType="slide-up"
-            onClose={this.onCloseModal}
-          >
-            <View style={{ paddingVertical: 220 }}>
-              <Text style={{ textAlign: "center" }}>Hello! Welcome!</Text>
-            </View>
-            <Button
-              onPress={() => {
-                this.setState({ shouldDisplayModal: false });
-              }}
-            >
-              Cancel
-            </Button>
-          </Modal>
-          <Button
-            type="primary"
+})(
+  class NewestScreenInner extends React.Component<
+    HomeScreenProps,
+    HomeScreenState
+  > {
+    public static navigationOptions = ({
+      navigation,
+      screenProps: { t }
+    }: {
+      navigation: NavigationScreenProps;
+      screenProps: { t: TFuncType };
+    }) => {
+      return {
+        headerTitle: t("newest"),
+        headerRight: (
+          <TouchableOpacity
+            activeOpacity={0.9}
+            style={{ paddingHorizontal: 5 }}
             onPress={() => {
-              this.setState({ shouldDisplayModal: true });
+              //@ts-ignore
+              navigation.navigate("Search");
             }}
           >
-            hey
-          </Button>
-        </ScrollView>
-      </View>
-    );
-  }
+            <Icon.FontAwesome
+              name="search"
+              size={23}
+              color={colors.primary}
+              style={{ paddingHorizontal: 10 }}
+            />
+          </TouchableOpacity>
+        )
+      };
+    };
 
-  private maybeRenderDevelopmentModeWarning(): JSX.Element {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this.handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
+    public state: HomeScreenState = {
+      refreshing: false,
+      loadFinished: false
+    };
 
+    public async componentDidMount(): Promise<void> {
+      await analytics.track("page_view_newest", {});
+    }
+
+    page: number = 1;
+    pageLimit: number = 5;
+
+    public renderItem = (item: Article) => {
+      const { navigation } = this.props;
+      return <ArticleItem item={item} navigation={navigation} />;
+    };
+
+    public render(): JSX.Element {
+      const { locale } = this.props;
       return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use
-          useful development tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
+        <View style={styles.container}>
+          <NavigationBar title={i18n.t("home")} />
+          <Query
+            query={GET_IO_ARTICLE}
+            ssr={false}
+            fetchPolicy={"cache-and-network"}
+            variables={{
+              skip: (this.page - 1) * this.pageLimit,
+              limit: this.pageLimit,
+              enOnly: isEnglish(locale)
+            }}
+            client={apolloClient}
+          >
+            {({
+              loading,
+              error,
+              data,
+              fetchMore,
+              refetch
+            }: QueryResult<{
+              ioArticles: Array<Article>;
+            }>) => {
+              if (error) {
+                return (
+                  <NetworkErrorView info={error.message} callback={refetch} />
+                );
+              }
+              const listData = lodash.isUndefined(data) ? [] : data.ioArticles;
+              return (
+                <FlatList
+                  style={{ flex: 1 }}
+                  data={listData}
+                  refreshControl={
+                    <RefreshControl
+                      refreshing={this.state.refreshing || loading}
+                      onRefresh={() => {
+                        this.setState({ refreshing: true }, async () => {
+                          try {
+                            await refetch();
+                            this.setState({ refreshing: false });
+                          } catch (error) {
+                            window.console.error(
+                              `failed to  refetch ioArticles: ${error}`
+                            );
+                          }
+                        });
+                      }}
+                      tintColor={colors.primary}
+                    />
+                  }
+                  renderItem={({ item }: FlatListItem) => this.renderItem(item)}
+                  keyExtractor={(item: Article, index: number) =>
+                    `${item.title} - ${index}`
+                  }
+                  ItemSeparatorComponent={() => <Separator />}
+                  ListEmptyComponent={() => (
+                    <EmptyView
+                      info={
+                        this.state.refreshing || loading ? "" : i18n.t("noData")
+                      }
+                      callback={refetch}
+                    />
+                  )}
+                  onEndReachedThreshold={1}
+                  ListFooterComponent={() => {
+                    return this.state.refreshing || loading ? null : this.state
+                        .loadFinished ? (
+                      <LoadingFinishedFooterView />
+                    ) : (
+                      <LoadingFooterView />
+                    );
+                  }}
+                  onEndReached={async () => {
+                    try {
+                      this.setState({ loadFinished: false });
+                      await fetchMore({
+                        variables: {
+                          skip: listData.length,
+                          limit: this.pageLimit
+                        },
+                        // @ts-ignore
+                        updateQuery: (previousResult, { fetchMoreResult }) => {
+                          const newData = lodash.isUndefined(fetchMoreResult)
+                            ? []
+                            : fetchMoreResult.ioArticles;
+                          this.setState({
+                            loadFinished: newData.length < this.pageLimit
+                          });
+                          return newData.length > 0 &&
+                            lodash.findIndex(
+                              previousResult.ioArticles,
+                              (article: Article) => article.id === newData[0].id
+                            ) < 0
+                            ? {
+                                ioArticles: [
+                                  ...previousResult.ioArticles,
+                                  ...newData
+                                ]
+                              }
+                            : previousResult;
+                        }
+                      });
+                    } catch (error) {
+                      window.console.error(
+                        `failed to fetch more ioArticles: ${error}`
+                      );
+                    }
+                  }}
+                />
+              );
+            }}
+          </Query>
+        </View>
       );
     }
   }
-
-  private readonly handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/development-mode"
-    ).catch((err: Error) => {
-      // tslint:disable-next-line:no-console
-      console.error(`failed to handleLearnMorePress: ${err}`);
-    });
-  };
-
-  private readonly handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes"
-    ).catch((err: Error) => {
-      // tslint:disable-next-line:no-console
-      console.error(`failed to handleHelpPress: ${err}`);
-    });
-  };
-}
+);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: "rgba(0,0,0,0.4)",
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: "center"
-  },
-  welcomeContainer: {
-    alignItems: "center",
-    marginTop: 10,
-    marginBottom: 20
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10
-  },
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50
-  },
-  homeScreenFilename: {
-    marginVertical: 7
-  },
-  codeHighlightText: {
-    color: "rgba(96,100,109, 0.8)"
-  },
-  codeHighlightContainer: {
-    backgroundColor: "rgba(0,0,0,0.05)",
-    borderRadius: 3,
-    paddingHorizontal: 4
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    lineHeight: 24,
-    textAlign: "center"
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    textAlign: "center"
-  },
-  navigationFilename: {
-    marginTop: 5
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: "center"
-  },
-  helpLink: {
-    paddingVertical: 15
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: "#2e78b7"
+    backgroundColor: colors.white,
+    flex: 1
   }
 });

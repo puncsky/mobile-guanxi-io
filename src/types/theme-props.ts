@@ -37,4 +37,9 @@ export interface ColorTheme {
   inactiveBackgroundColor: string;
   navBg: string;
   navText: string;
+  titleText: string;
+  contentText: string;
+  linkText: string;
+  summaryText: string;
+  separator: string;
 }
