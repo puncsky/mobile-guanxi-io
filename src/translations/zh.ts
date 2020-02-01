@@ -3,6 +3,7 @@ export const zh = {
   home: "首页",
   links: "链接",
   settings: "设置",
+  playbook: "剧本",
   mine: "我的",
   //mine
   reviewApp: "给个好评鼓励一下",
@@ -37,5 +38,9 @@ export const zh = {
   tag: "标签",
   fave: "收藏",
   sheetActionTitle: "点击下面标签，读更多相关文章",
-  views: "浏览量"
+  views: "浏览量",
+  //flatlist
+  refresh: "刷新",
+  loading: "正在加载",
+  loadingFinished: "已全部加载完"
 };

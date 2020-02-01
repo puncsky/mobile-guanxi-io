@@ -3,6 +3,7 @@ export const en = {
   home: "Home",
   links: "Links",
   settings: "Settings",
+  playbook: "Playbook",
   mine: "Mine",
   //mine
   reviewApp: "Like it? Give it a review :)",
@@ -37,5 +38,9 @@ export const en = {
   tag: "Tag",
   fave: "Save",
   sheetActionTitle: "Tap tags below to view more related notes",
-  views: "Visitor Count"
+  views: "Visitor Count",
+  //flatlist
+  refresh: "Refresh",
+  loading: "Loading",
+  loadingFinished: "Finished loading data"
 };

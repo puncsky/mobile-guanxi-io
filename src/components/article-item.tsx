@@ -31,6 +31,7 @@ import { TimeUtil } from "../common/time-util";
 import { LoginWebView } from "../screens/mine-screen/login-web-view";
 import i18n from "../translations";
 import { Article } from "../types/article";
+import { ThemeProps } from "../types/theme-props";
 const ICON_SIZE = 18;
 const ICON_SIZE_SM = 14;
 
@@ -38,6 +39,7 @@ type Props = {
   item: Article;
   navigation: NavigationScreenProp<string>;
   locale: string;
+  currentTheme: ThemeProps;
 };
 
 type State = {
@@ -47,7 +49,8 @@ type State = {
 
 export const ArticleItem = connect((state: AppState) => {
   return {
-    locale: state.base.locale
+    locale: state.base.locale,
+    currentTheme: state.base.currentTheme
   };
 })(
   class ArticleItemInner extends React.Component<Props, State> {
@@ -119,6 +122,7 @@ export const ArticleItem = connect((state: AppState) => {
       onPress?: () => void,
       isSmall?: boolean
     ): JSX.Element {
+      const { currentTheme } = this.props;
       const fontSize = isSmall ? ICON_SIZE_SM : ICON_SIZE;
       const style = isSmall ? styles.buttonTextSm : styles.buttonText;
       return (
@@ -130,9 +134,11 @@ export const ArticleItem = connect((state: AppState) => {
           <Icon.FontAwesome
             name={icon}
             size={fontSize}
-            color={lightTheme.primary}
+            color={currentTheme.theme.primary}
           />
-          <Text style={style}>{title}</Text>
+          <Text style={[style, { color: currentTheme.theme.primary }]}>
+            {title}
+          </Text>
         </TouchableOpacity>
       );
     }
@@ -190,7 +196,7 @@ export const ArticleItem = connect((state: AppState) => {
     };
 
     public render(): JSX.Element {
-      const { item } = this.props;
+      const { item, currentTheme } = this.props;
       const { title, short, forwardedFor, date, visitorCount } = item;
       let { isFave } = item;
       if (this.state.faved !== undefined) {
@@ -210,7 +216,12 @@ export const ArticleItem = connect((state: AppState) => {
           ? 0
           : visitorCount.toString().replace(/(\d)(?=(?:\d{3})+$)/g, "$1,");
       return (
-        <View style={styles.container}>
+        <View
+          style={[
+            styles.container,
+            { backgroundColor: currentTheme.theme.white }
+          ]}
+        >
           <View
             style={{
               flexDirection: "row",
@@ -224,7 +235,13 @@ export const ArticleItem = connect((state: AppState) => {
                 style={styles.leftTopImg}
                 resizeMode="contain"
               />
-              <Text numberOfLines={1} style={styles.leftTopText}>
+              <Text
+                numberOfLines={1}
+                style={[
+                  styles.leftTopText,
+                  { color: currentTheme.theme.linkText }
+                ]}
+              >
                 {formattedUrl}
               </Text>
             </View>
@@ -239,9 +256,28 @@ export const ArticleItem = connect((state: AppState) => {
             activeOpacity={1}
             onPress={this.onNavigateToBriefScreen}
           >
-            <Text style={styles.titleText}>{title}</Text>
-            <Text style={styles.contentText}>{short}</Text>
-            <Text style={styles.summaryText}>
+            <Text
+              style={[
+                styles.titleText,
+                { color: currentTheme.theme.titleText }
+              ]}
+            >
+              {title}
+            </Text>
+            <Text
+              style={[
+                styles.contentText,
+                { color: currentTheme.theme.contentText }
+              ]}
+            >
+              {short}
+            </Text>
+            <Text
+              style={[
+                styles.summaryText,
+                { color: currentTheme.theme.summaryText }
+              ]}
+            >
               {`${shortDate} · ${i18n.t("views")} ${formattedVisitorCount}`}
             </Text>
           </TouchableOpacity>
@@ -281,8 +317,18 @@ export const ArticleItem = connect((state: AppState) => {
             onClose={this.onCloseModal}
           >
             <LoginWebView onClose={this.onCloseModal} isSignUp={false} />
-            <Button style={styles.closeButton} onPress={this.onCloseModal}>
-              <Text style={styles.closeText}>✕</Text>
+            <Button
+              style={[
+                styles.closeButton,
+                { backgroundColor: currentTheme.theme.primary }
+              ]}
+              onPress={this.onCloseModal}
+            >
+              <Text
+                style={[styles.closeText, { color: currentTheme.theme.white }]}
+              >
+                ✕
+              </Text>
             </Button>
           </Modal>
         </View>
