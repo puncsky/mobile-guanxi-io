@@ -1,4 +1,4 @@
-const lightTheme = {
+export const lightTheme = {
   primary: "#FBB03B",
   secondary: "#0C8DE4",
   white: "#fff",
@@ -28,10 +28,15 @@ const lightTheme = {
   activeBackgroundColor: "#fff",
   inactiveBackgroundColor: "#fff",
   navBg: "#fff",
-  navText: "#000"
+  navText: "#000",
+  titleText: "#0A0A0A",
+  contentText: "#333333",
+  linkText: "#999999",
+  summaryText: "#999999",
+  separator: "#CCCCCC"
 };
 
-const darkTheme = {
+export const darkTheme = {
   primary: "blue",
   secondary: "#0C8DE4",
   white: "#fff",
@@ -61,7 +66,12 @@ const darkTheme = {
   activeBackgroundColor: "#2E3235",
   inactiveBackgroundColor: "#2E3235",
   navBg: "#2E3235",
-  navText: "#fff"
+  navText: "#fff",
+  titleText: "#0A0A0A",
+  contentText: "#333333",
+  linkText: "#999999",
+  summaryText: "#999999",
+  separator: "#CCCCCC"
 };
 
 const antdLightTheme = {

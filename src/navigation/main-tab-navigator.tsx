@@ -14,7 +14,7 @@ import { TabBarIcon } from "../components/tab-bar-icon";
 import { HomeScreen } from "../screens/home-screen";
 import { LinksScreen } from "../screens/links-screen";
 import { MineScreen } from "../screens/mine-screen/mine-screen";
-import { SettingsScreen } from "../screens/settings-screen";
+import { PlaybookScreen } from "../screens/playbook-screen/playbook-screen";
 
 const HomeStack = createStackNavigator(
   {
@@ -77,23 +77,23 @@ LinksStack.navigationOptions = ({
   }
 });
 
-const SettingsStack = createStackNavigator(
+const PlaybookStack = createStackNavigator(
   {
-    Settings: SettingsScreen
+    Settings: PlaybookScreen
   },
   {
     headerMode: "none"
   }
 );
 
-SettingsStack.navigationOptions = ({
+PlaybookStack.navigationOptions = ({
   screenProps: { t }
 }: {
   screenProps: { t: TFuncType };
 }) => ({
-  tabBarLabel: t("settings"),
+  tabBarLabel: t("playbook"),
   tabBarIcon: ({ focused }: { focused: boolean }) => {
-    const name = Platform.OS === "ios" ? "ios-options" : "md-options";
+    const name = Platform.OS === "ios" ? "ios-book" : "md-book";
     return <TabBarIcon focused={focused} name={name} />;
   },
   tabBarOnPress: async ({
@@ -139,7 +139,7 @@ export const MainTabNavigator = createBottomTabNavigator(
   {
     HomeStack,
     LinksStack,
-    SettingsStack,
+    PlaybookStack,
     MineStack
   },
   {
