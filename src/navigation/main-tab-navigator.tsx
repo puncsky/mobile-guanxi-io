@@ -12,9 +12,9 @@ import { TFuncType } from "../types/screen-props";
 
 import { TabBarIcon } from "../components/tab-bar-icon";
 import { HomeScreen } from "../screens/home-screen";
-import { LinksScreen } from "../screens/links-screen";
 import { MineScreen } from "../screens/mine-screen/mine-screen";
 import { PlaybookScreen } from "../screens/playbook-screen/playbook-screen";
+import { RelationshipsScreen } from "../screens/relationships-screen/relationships-screen";
 
 const HomeStack = createStackNavigator(
   {
@@ -50,7 +50,7 @@ HomeStack.navigationOptions = ({
 
 const LinksStack = createStackNavigator(
   {
-    Links: LinksScreen
+    Links: RelationshipsScreen
   },
   {
     headerMode: "none"

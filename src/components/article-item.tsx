@@ -195,9 +195,11 @@ export const ArticleItem = connect((state: AppState) => {
       this.setState({ shouldDisplayModal: false });
     };
 
+    // tslint:disable-next-line:max-func-body-length
     public render(): JSX.Element {
       const { item, currentTheme } = this.props;
       const { title, short, forwardedFor, date, visitorCount } = item;
+
       let { isFave } = item;
       if (this.state.faved !== undefined) {
         isFave = this.state.faved;
@@ -215,6 +217,7 @@ export const ArticleItem = connect((state: AppState) => {
         visitorCount === null
           ? 0
           : visitorCount.toString().replace(/(\d)(?=(?:\d{3})+$)/g, "$1,");
+
       return (
         <View
           style={[
