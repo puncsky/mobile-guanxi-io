@@ -60,3 +60,27 @@ export const ADD_PUSH_TOKEN = gql`
     addPushToken(token: $pushToken)
   }
 `;
+
+export const GET_IO_ARTICLE_BY_TAG = gql`
+  query ioArticlesByTag(
+    $tag: String
+    $skip: Int
+    $limit: Int
+    $enOnly: Boolean
+  ) {
+    ioArticlesByTag(tag: $tag, skip: $skip, limit: $limit, enOnly: $enOnly) {
+      id
+      url
+      isFave
+      short
+      title
+      content
+      forwardedFor
+      date
+      visitorCount
+      tags {
+        enum
+      }
+    }
+  }
+`;
