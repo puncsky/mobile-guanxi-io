@@ -4,6 +4,9 @@ import {
   createSwitchNavigator
 } from "react-navigation";
 
+import { ArticlesByTagScreen } from "../screens/playbook-screen/articles-by-tag-screen";
+import { BriefCommentScreen } from "../screens/playbook-screen/brief-comment-screen";
+import { OriginalLinkScreen } from "../screens/playbook-screen/orginal-link-screen";
 import { MainTabNavigator } from "./main-tab-navigator";
 
 const RootScreen = createSwitchNavigator({
@@ -17,7 +20,10 @@ const AppRoot = createStackNavigator(
       navigationOptions: {
         header: null
       }
-    }
+    },
+    BriefComment: BriefCommentScreen,
+    OriginalLink: OriginalLinkScreen,
+    ArticlesByTag: ArticlesByTagScreen
   },
   {
     headerMode: "none"
