@@ -64,6 +64,7 @@ export const PlaybookScreen = connect((state: AppState) => {
       return <ArticleItem item={item} navigation={navigation} />;
     };
 
+    // tslint:disable-next-line:max-func-body-length
     public render(): JSX.Element {
       const { locale, currentTheme } = this.props;
       return (
