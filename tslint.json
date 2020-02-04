@@ -26,7 +26,7 @@
     "no-relative-imports": false,
     "no-empty-interfaces": false,
     "use-simple-attributes": false,
-    "max-func-body-length": [true, 120],
+    "max-func-body-length": [true, 150],
     "import-name": false,
     "export-name": false,
     "react-tsx-curly-spacing": [

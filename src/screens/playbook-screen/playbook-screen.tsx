@@ -106,7 +106,10 @@ export const PlaybookScreen = connect((state: AppState) => {
                   data={listData}
                   refreshControl={
                     <RefreshControl
-                      refreshing={this.state.refreshing || loading}
+                      refreshing={
+                        this.state.refreshing ||
+                        (loading && listData.length === 0)
+                      }
                       onRefresh={() => {
                         this.setState({ refreshing: true }, async () => {
                           try {
