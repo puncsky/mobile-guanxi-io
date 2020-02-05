@@ -9,10 +9,10 @@ import {
   statusBarHeight
 } from "../common/screen-util";
 import { AppState } from "../common/store";
-import { ThemeProps } from "../types/theme-props";
+import { theme } from "../common/theme";
 
 type Props = {
-  currentTheme: ThemeProps;
+  currentTheme?: "light" | "dark";
   title: string;
   showBack: boolean;
   navigation: NavigationScreenProp<string>;
@@ -28,12 +28,12 @@ const NavBar = connect((state: AppState) => ({
         <View
           style={{
             height: navigationBarHeight,
-            backgroundColor: currentTheme.theme.navBg
+            backgroundColor: theme.navBg
           }}
         >
           <StatusBar
             barStyle={
-              currentTheme.name === "light" ? "default" : "light-content"
+              currentTheme === "dark" ? "light-content" : "dark-content"
             }
           />
           <View
@@ -43,7 +43,7 @@ const NavBar = connect((state: AppState) => ({
               alignItems: "center",
               height: navigationBarHeight - statusBarHeight,
               borderBottomWidth: onePx,
-              borderBottomColor: currentTheme.theme.black80
+              borderBottomColor: theme.black80
             }}
           >
             {showBack && (
@@ -60,14 +60,14 @@ const NavBar = connect((state: AppState) => ({
                 <Icon.Ionicons
                   name="ios-arrow-back"
                   size={29}
-                  color={currentTheme.theme.navText}
+                  color={theme.navText}
                   style={{ paddingHorizontal: 10 }}
                 />
               </TouchableOpacity>
             )}
             <Text
               style={{
-                color: currentTheme.theme.navText,
+                color: theme.navText,
                 fontSize: 17,
                 fontWeight: "bold"
               }}

@@ -9,26 +9,24 @@ import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
 import { getEndpoint } from "../../common/request";
 import { AppState } from "../../common/store";
-import { lightTheme } from "../../common/theme";
+import { theme } from "../../common/theme";
 import i18n from "../../translations";
 import { Article } from "../../types/article";
-import { ThemeProps } from "../../types/theme-props";
 
 type Props = {
   item: Article;
   navigation: NavigationScreenProp<string>;
   locale: string;
-  currentTheme: ThemeProps;
 };
 
 export const PayShareButtons = connect((state: AppState) => ({
-  locale: state.base.locale,
-  currentTheme: state.base.currentTheme
+  locale: state.base.locale
 }))(
   class PayShareButtonsInner extends React.Component<Props> {
     render(): JSX.Element {
+      const styles = getStyles();
       //@ts-ignore
-      const { item, navigation, currentTheme } = this.props;
+      const { item, navigation } = this.props;
       return (
         <View style={styles.buttonsContainer}>
           {Platform.OS !== "ios" && (
@@ -38,11 +36,7 @@ export const PayShareButtons = connect((state: AppState) => ({
                 await WebBrowser.openBrowserAsync(getEndpoint("donate"));
               }}
             >
-              <Icon.FontAwesome
-                color={currentTheme.theme.white}
-                size={24}
-                name="dollar"
-              />
+              <Icon.FontAwesome color={theme.white} size={24} name="dollar" />
             </Button>
           )}
           <Button
@@ -69,18 +63,10 @@ export const PayShareButtons = connect((state: AppState) => ({
                 });
             }}
           >
-            <Icon.FontAwesome
-              color={currentTheme.theme.white}
-              size={24}
-              name="share-alt"
-            />
+            <Icon.FontAwesome color={theme.white} size={24} name="share-alt" />
           </Button>
           <Button style={styles.circleButton} onPress={() => navigation.pop()}>
-            <Icon.FontAwesome
-              color={currentTheme.theme.white}
-              size={24}
-              name="close"
-            />
+            <Icon.FontAwesome color={theme.white} size={24} name="close" />
           </Button>
         </View>
       );
@@ -88,20 +74,21 @@ export const PayShareButtons = connect((state: AppState) => ({
   }
 );
 
-const styles = StyleSheet.create({
-  circleButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: lightTheme.primary,
-    marginRight: 10
-  },
-  buttonsContainer: {
-    position: "absolute",
-    bottom: 20,
-    right: 0,
-    height: 60,
-    flexDirection: "row",
-    alignItems: "center"
-  }
-});
+const getStyles = () =>
+  StyleSheet.create({
+    circleButton: {
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      backgroundColor: theme.primary,
+      marginRight: 10
+    },
+    buttonsContainer: {
+      position: "absolute",
+      bottom: 20,
+      right: 0,
+      height: 60,
+      flexDirection: "row",
+      alignItems: "center"
+    }
+  });

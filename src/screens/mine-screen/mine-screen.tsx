@@ -1,5 +1,7 @@
 import * as React from "react";
 import { View } from "react-native";
+import { ScreenHeight } from "../../common/screen-util";
+import { theme } from "../../common/theme";
 import { NavigationBar } from "../../components/navigation-bar";
 import i18n from "../../translations";
 import { ScreenProps } from "../../types/screen-props";
@@ -12,7 +14,12 @@ type Props = {
 export class MineScreen extends React.Component<Props> {
   public render(): JSX.Element {
     return (
-      <View>
+      <View
+        style={{
+          backgroundColor: theme.white,
+          height: ScreenHeight
+        }}
+      >
         <NavigationBar title={i18n.t("mine")} />
         <About screenProps={this.props.screenProps} />
       </View>

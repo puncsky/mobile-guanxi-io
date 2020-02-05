@@ -1,4 +1,10 @@
-export const lightTheme = {
+import { Appearance } from "react-native-appearance";
+const colorScheme = Appearance.getColorScheme();
+const colorMode = colorScheme === "dark" ? "dark" : "light";
+
+const lightTheme = {
+  name: "light",
+
   primary: "#FBB03B",
   secondary: "#0C8DE4",
   white: "#fff",
@@ -36,12 +42,14 @@ export const lightTheme = {
   separator: "#CCCCCC"
 };
 
-export const darkTheme = {
-  primary: "blue",
-  secondary: "#0C8DE4",
-  white: "#fff",
+const darkTheme = {
+  name: "dark",
 
-  black: "#000000",
+  primary: "#FBB03B",
+  secondary: "#0C8DE4",
+  white: "#333333",
+
+  black: "#FFF",
   black90: "#333333",
   black80: "#999999",
   black60: "#CCCCCC",
@@ -49,7 +57,7 @@ export const darkTheme = {
   black20: "#F0F0F0",
   black10: "#F7F7F7",
 
-  text01: "#4c4c4c", //		Primary text, Body copy
+  text01: "#FFFFFF", //		Primary text, Body copy
 
   error: "#E54937", //	Error
   success: "#07A35A", //	Success
@@ -74,21 +82,24 @@ export const darkTheme = {
   separator: "#CCCCCC"
 };
 
-const antdLightTheme = {
+export let theme = colorMode === "dark" ? darkTheme : lightTheme;
+
+export function setTheme(mode: "dark" | "light" | undefined): void {
+  theme = mode === "dark" ? darkTheme : lightTheme;
+}
+
+export const antdLightTheme = {
+  color_text_base: lightTheme.text01,
   brand_primary: lightTheme.primary,
   color_link: lightTheme.primary,
   primary_button_fill: lightTheme.primary,
   primary_button_fill_tap: lightTheme.primary
 };
 
-const antdDarkTheme = {
+export const antdDarkTheme = {
+  color_text_base: darkTheme.text01,
   brand_primary: darkTheme.primary,
   color_link: darkTheme.primary,
   primary_button_fill: darkTheme.primary,
   primary_button_fill_tap: darkTheme.primary
-};
-
-export const theme = {
-  light: { name: "light", theme: lightTheme, antdTheme: antdLightTheme },
-  dark: { name: "dark", theme: darkTheme, antdTheme: antdDarkTheme }
 };
