@@ -1,4 +1,4 @@
-import { colors } from "./colors";
+import { theme } from "./theme";
 
 export const readabilityStyles = `<style rel="stylesheet">
 
@@ -59,7 +59,7 @@ h2 {
 /* 04 Color and contrast */
 
 body {
-  color: ${colors.text01};
+  color: ${theme.text01};
 }
 
 h1,
@@ -94,7 +94,7 @@ a {
 
 body {
   background: white;
-  color: ${colors.text01};
+  color: ${theme.text01};
 }
 
 code,

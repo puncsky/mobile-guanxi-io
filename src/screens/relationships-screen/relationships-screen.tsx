@@ -4,7 +4,7 @@ import { Query, QueryResult } from "react-apollo";
 import { FlatList, RefreshControl, View } from "react-native";
 import { Text } from "react-native";
 import { connect } from "react-redux";
-import { AppState } from "../../common/store";
+import { theme } from "../../common/theme";
 import { NavigationBar } from "../../components/navigation-bar";
 import i18n from "../../translations";
 import { ThemeProps } from "../../types/theme-props";
@@ -35,14 +35,11 @@ type Props = {
   currentTheme: ThemeProps;
 };
 
-export const RelationshipsScreen = connect((state: AppState) => {
-  return {
-    currentTheme: state.base.currentTheme
-  };
+export const RelationshipsScreen = connect(() => {
+  return {};
 })(
   class LinksScreenInner extends React.Component<Props> {
     public render(): JSX.Element {
-      const { currentTheme } = this.props;
       return (
         <View>
           <NavigationBar title={i18n.t("links")} />
@@ -58,7 +55,7 @@ export const RelationshipsScreen = connect((state: AppState) => {
                   refreshControl={
                     <RefreshControl
                       refreshing={loading}
-                      tintColor={currentTheme.theme.primary}
+                      tintColor={theme.primary}
                     />
                   }
                   keyExtractor={(item: Contact, index: number) =>

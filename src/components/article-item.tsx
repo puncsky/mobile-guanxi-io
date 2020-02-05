@@ -26,12 +26,11 @@ import {
 import { isEnglish } from "../common/is-english";
 import { getEndpoint } from "../common/request";
 import { AppState } from "../common/store";
-import { lightTheme } from "../common/theme";
+import { theme } from "../common/theme";
 import { TimeUtil } from "../common/time-util";
 import { LoginWebView } from "../screens/mine-screen/login-web-view";
 import i18n from "../translations";
 import { Article } from "../types/article";
-import { ThemeProps } from "../types/theme-props";
 const ICON_SIZE = 18;
 const ICON_SIZE_SM = 14;
 
@@ -39,7 +38,6 @@ type Props = {
   item: Article;
   navigation: NavigationScreenProp<string>;
   locale: string;
-  currentTheme: ThemeProps;
 };
 
 type State = {
@@ -49,8 +47,7 @@ type State = {
 
 export const ArticleItem = connect((state: AppState) => {
   return {
-    locale: state.base.locale,
-    currentTheme: state.base.currentTheme
+    locale: state.base.locale
   };
 })(
   class ArticleItemInner extends React.Component<Props, State> {
@@ -122,7 +119,7 @@ export const ArticleItem = connect((state: AppState) => {
       onPress?: () => void,
       isSmall?: boolean
     ): JSX.Element {
-      const { currentTheme } = this.props;
+      const styles = getStyles();
       const fontSize = isSmall ? ICON_SIZE_SM : ICON_SIZE;
       const style = isSmall ? styles.buttonTextSm : styles.buttonText;
       return (
@@ -131,14 +128,8 @@ export const ArticleItem = connect((state: AppState) => {
           style={styles.rowCenter}
           onPress={onPress}
         >
-          <Icon.FontAwesome
-            name={icon}
-            size={fontSize}
-            color={currentTheme.theme.primary}
-          />
-          <Text style={[style, { color: currentTheme.theme.primary }]}>
-            {title}
-          </Text>
+          <Icon.FontAwesome name={icon} size={fontSize} color={theme.primary} />
+          <Text style={[style, { color: theme.primary }]}>{title}</Text>
         </TouchableOpacity>
       );
     }
@@ -197,7 +188,7 @@ export const ArticleItem = connect((state: AppState) => {
 
     // tslint:disable-next-line:max-func-body-length
     public render(): JSX.Element {
-      const { item, currentTheme } = this.props;
+      const { item } = this.props;
       const { title, short, forwardedFor, date, visitorCount } = item;
 
       let { isFave } = item;
@@ -217,14 +208,9 @@ export const ArticleItem = connect((state: AppState) => {
         visitorCount === null
           ? 0
           : visitorCount.toString().replace(/(\d)(?=(?:\d{3})+$)/g, "$1,");
-
+      const styles = getStyles();
       return (
-        <View
-          style={[
-            styles.container,
-            { backgroundColor: currentTheme.theme.white }
-          ]}
-        >
+        <View style={[styles.container, { backgroundColor: theme.white }]}>
           <View
             style={{
               flexDirection: "row",
@@ -240,10 +226,7 @@ export const ArticleItem = connect((state: AppState) => {
               />
               <Text
                 numberOfLines={1}
-                style={[
-                  styles.leftTopText,
-                  { color: currentTheme.theme.linkText }
-                ]}
+                style={[styles.leftTopText, { color: theme.linkText }]}
               >
                 {formattedUrl}
               </Text>
@@ -259,28 +242,13 @@ export const ArticleItem = connect((state: AppState) => {
             activeOpacity={1}
             onPress={this.onNavigateToBriefScreen}
           >
-            <Text
-              style={[
-                styles.titleText,
-                { color: currentTheme.theme.titleText }
-              ]}
-            >
+            <Text style={[styles.titleText, { color: theme.titleText }]}>
               {title}
             </Text>
-            <Text
-              style={[
-                styles.contentText,
-                { color: currentTheme.theme.contentText }
-              ]}
-            >
+            <Text style={[styles.contentText, { color: theme.contentText }]}>
               {short}
             </Text>
-            <Text
-              style={[
-                styles.summaryText,
-                { color: currentTheme.theme.summaryText }
-              ]}
-            >
+            <Text style={[styles.summaryText, { color: theme.summaryText }]}>
               {`${shortDate} · ${i18n.t("views")} ${formattedVisitorCount}`}
             </Text>
           </TouchableOpacity>
@@ -321,17 +289,10 @@ export const ArticleItem = connect((state: AppState) => {
           >
             <LoginWebView onClose={this.onCloseModal} isSignUp={false} />
             <Button
-              style={[
-                styles.closeButton,
-                { backgroundColor: currentTheme.theme.primary }
-              ]}
+              style={[styles.closeButton, { backgroundColor: theme.primary }]}
               onPress={this.onCloseModal}
             >
-              <Text
-                style={[styles.closeText, { color: currentTheme.theme.white }]}
-              >
-                ✕
-              </Text>
+              <Text style={[styles.closeText, { color: theme.white }]}>✕</Text>
             </Button>
           </Modal>
         </View>
@@ -340,40 +301,41 @@ export const ArticleItem = connect((state: AppState) => {
   }
 );
 
-const styles = StyleSheet.create({
-  container: { padding: 20, backgroundColor: lightTheme.white },
-  leftTopImg: { height: 16, width: 16, marginRight: 8 },
-  leftTopText: { color: lightTheme.linkText, fontSize: 12 },
-  rowCenter: { flexDirection: "row", alignItems: "center" },
-  titleText: {
-    color: lightTheme.titleText,
-    fontSize: 20,
-    marginVertical: 10,
-    lineHeight: 24
-  },
-  contentText: { color: lightTheme.contentText, fontSize: 16, lineHeight: 24 },
-  summaryText: {
-    color: lightTheme.summaryText,
-    fontSize: 14,
-    marginVertical: 8
-  },
-  buttonText: { fontSize: ICON_SIZE, color: lightTheme.primary, marginLeft: 4 },
-  buttonTextSm: {
-    fontSize: ICON_SIZE_SM,
-    color: lightTheme.primary,
-    marginLeft: 4
-  },
-  closeButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: lightTheme.primary,
-    position: "absolute",
-    bottom: 10,
-    right: 10
-  },
-  closeText: {
-    color: lightTheme.white,
-    fontSize: 24
-  }
-});
+const getStyles = () =>
+  StyleSheet.create({
+    container: { padding: 20, backgroundColor: theme.white },
+    leftTopImg: { height: 16, width: 16, marginRight: 8 },
+    leftTopText: { color: theme.linkText, fontSize: 12 },
+    rowCenter: { flexDirection: "row", alignItems: "center" },
+    titleText: {
+      color: theme.titleText,
+      fontSize: 20,
+      marginVertical: 10,
+      lineHeight: 24
+    },
+    contentText: { color: theme.contentText, fontSize: 16, lineHeight: 24 },
+    summaryText: {
+      color: theme.summaryText,
+      fontSize: 14,
+      marginVertical: 8
+    },
+    buttonText: { fontSize: ICON_SIZE, color: theme.primary, marginLeft: 4 },
+    buttonTextSm: {
+      fontSize: ICON_SIZE_SM,
+      color: theme.primary,
+      marginLeft: 4
+    },
+    closeButton: {
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      backgroundColor: theme.primary,
+      position: "absolute",
+      bottom: 10,
+      right: 10
+    },
+    closeText: {
+      color: theme.white,
+      fontSize: 24
+    }
+  });

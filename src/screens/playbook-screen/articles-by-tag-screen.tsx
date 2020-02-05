@@ -11,6 +11,7 @@ import { apolloClient } from "../../common/apollo-client";
 import { GET_IO_ARTICLE_BY_TAG } from "../../common/gqls";
 import { isEnglish } from "../../common/is-english";
 import { AppState } from "../../common/store";
+import { theme } from "../../common/theme";
 import { ArticleItem } from "../../components/article-item";
 import {
   EmptyView,
@@ -42,8 +43,7 @@ type ArticlesByTagScreenState = {
 
 export const ArticlesByTagScreen = connect((state: AppState) => {
   return {
-    locale: state.base.locale,
-    currentTheme: state.base.currentTheme
+    locale: state.base.locale
   };
 })(
   class ArticlesByTagScreenInner extends React.Component<
@@ -66,7 +66,7 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
 
     // tslint:disable-next-line:max-func-body-length
     public renderQueryList = (item: DiscoveryItem) => {
-      const { locale, currentTheme } = this.props;
+      const { locale } = this.props;
       const enOnly =
         item.enOnly === undefined ? isEnglish(locale) : item.enOnly;
       return (
@@ -122,7 +122,7 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
                         }
                       });
                     }}
-                    tintColor={currentTheme.theme.primary}
+                    tintColor={theme.primary}
                   />
                 }
                 renderItem={({ item }: FlatListItem) => this.renderItem(item)}
@@ -193,11 +193,11 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
     };
 
     public render(): JSX.Element {
-      const { navigation, currentTheme } = this.props;
+      const { navigation } = this.props;
       const item = navigation.getParam("item");
       const { tag } = item;
       return (
-        <View style={{ flex: 1, backgroundColor: currentTheme.theme.white }}>
+        <View style={{ flex: 1, backgroundColor: theme.white }}>
           <NavigationBar title={`Tag:${tag}`} showBack />
           {this.renderQueryList(item)}
         </View>

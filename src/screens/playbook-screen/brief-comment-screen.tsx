@@ -1,5 +1,3 @@
-// @ts-ignore
-import * as Icon from "@expo/vector-icons";
 //@ts-ignore
 import MarkdownIt from "markdown-it";
 //@ts-ignore
@@ -10,7 +8,7 @@ import { WebView } from "react-native-webview";
 import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
 import { readabilityStyles } from "../../common/readability-styles";
-import { AppState } from "../../common/store";
+import { theme } from "../../common/theme";
 import { TimeUtil } from "../../common/time-util";
 import { NavigationBar } from "../../components/navigation-bar";
 import i18n from "../../translations";
@@ -58,12 +56,10 @@ const mdit = new MarkdownIt({
   breaks: true
 }).use(markMiddleware);
 
-export const BriefCommentScreen = connect((state: AppState) => ({
-  currentTheme: state.base.currentTheme
-}))(
+export const BriefCommentScreen = connect(() => ({}))(
   class BriefCommentScreenInner extends React.Component<Props> {
     public render(): JSX.Element {
-      const { navigation, currentTheme } = this.props;
+      const { navigation } = this.props;
       const item = navigation.getParam("item");
       const { title, content, date, visitorCount } = item;
       const shortDate = TimeUtil.getTimeAgo(date);
@@ -90,7 +86,7 @@ export const BriefCommentScreen = connect((state: AppState) => ({
         <View
           style={{
             flex: 1,
-            backgroundColor: currentTheme.theme.white
+            backgroundColor: theme.white
           }}
         >
           <NavigationBar title={i18n.t("brief")} showBack />
@@ -98,7 +94,7 @@ export const BriefCommentScreen = connect((state: AppState) => ({
             style={{
               flex: 1,
               paddingHorizontal: 10,
-              backgroundColor: currentTheme.theme.white
+              backgroundColor: theme.white
             }}
           >
             <WebView

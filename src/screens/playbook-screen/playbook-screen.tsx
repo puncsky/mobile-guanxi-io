@@ -1,6 +1,5 @@
 /* tslint:disable:no-any */
 // @ts-ignore
-import * as Icon from "@expo/vector-icons";
 import * as lodash from "lodash";
 import * as React from "react";
 import { Query, QueryResult } from "react-apollo";
@@ -11,7 +10,7 @@ import { apolloClient } from "../../common/apollo-client";
 import { GET_IO_ARTICLE } from "../../common/gqls";
 import { isEnglish } from "../../common/is-english";
 import { AppState } from "../../common/store";
-import { lightTheme } from "../../common/theme";
+import { theme } from "../../common/theme";
 import { ArticleItem } from "../../components/article-item";
 import {
   EmptyView,
@@ -23,7 +22,6 @@ import {
 import { NavigationBar } from "../../components/navigation-bar";
 import i18n from "../../translations";
 import { Article } from "../../types/article";
-import { ThemeProps } from "../../types/theme-props";
 
 type FlatListItem = {
   item: Article;
@@ -32,7 +30,6 @@ type FlatListItem = {
 type ScreenProps = {
   navigation: any;
   locale: string;
-  currentTheme: ThemeProps;
 };
 
 type ScreenState = {
@@ -42,8 +39,7 @@ type ScreenState = {
 
 export const PlaybookScreen = connect((state: AppState) => {
   return {
-    locale: state.base.locale,
-    currentTheme: state.base.currentTheme
+    locale: state.base.locale
   };
 })(
   class PlaybookScreenInner extends React.Component<ScreenProps, ScreenState> {
@@ -66,14 +62,9 @@ export const PlaybookScreen = connect((state: AppState) => {
 
     // tslint:disable-next-line:max-func-body-length
     public render(): JSX.Element {
-      const { locale, currentTheme } = this.props;
+      const { locale } = this.props;
       return (
-        <View
-          style={[
-            styles.container,
-            { backgroundColor: currentTheme.theme.white }
-          ]}
-        >
+        <View style={[styles.container, { backgroundColor: theme.white }]}>
           <NavigationBar title={i18n.t("playbook")} />
           <Query
             query={GET_IO_ARTICLE}
@@ -123,7 +114,7 @@ export const PlaybookScreen = connect((state: AppState) => {
                           }
                         });
                       }}
-                      tintColor={currentTheme.theme.primary}
+                      tintColor={theme.primary}
                     />
                   }
                   renderItem={({ item }: FlatListItem) => this.renderItem(item)}
@@ -196,7 +187,7 @@ export const PlaybookScreen = connect((state: AppState) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: lightTheme.white,
+    backgroundColor: theme.white,
     flex: 1
   }
 });
