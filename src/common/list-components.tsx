@@ -3,8 +3,8 @@ import * as lodash from "lodash";
 import * as React from "react";
 import { ActivityIndicator, Dimensions, Text, View } from "react-native";
 import { connect } from "react-redux";
-import { theme } from "../common/theme";
 import i18n from "../translations";
+import { theme } from "./theme";
 
 const { width } = Dimensions.get("window");
 

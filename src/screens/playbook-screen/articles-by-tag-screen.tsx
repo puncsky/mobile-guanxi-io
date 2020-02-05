@@ -8,19 +8,19 @@ import { FlatList, RefreshControl, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
 import { apolloClient } from "../../common/apollo-client";
+import { ArticleItem } from "../../common/article-item";
 import { GET_IO_ARTICLE_BY_TAG } from "../../common/gqls";
 import { isEnglish } from "../../common/is-english";
-import { AppState } from "../../common/store";
-import { theme } from "../../common/theme";
-import { ArticleItem } from "../../components/article-item";
 import {
   EmptyView,
   LoadingFinishedFooterView,
   LoadingFooterView,
   NetworkErrorView,
   Separator
-} from "../../components/list-components";
-import { NavigationBar } from "../../components/navigation-bar";
+} from "../../common/list-components";
+import { NavigationBar } from "../../common/navigation-bar";
+import { AppState } from "../../common/store";
+import { theme } from "../../common/theme";
 import i18n from "../../translations";
 import { Article } from "../../types/article";
 import { DiscoveryItem } from "../../types/discovery-item";

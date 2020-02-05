@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BottomTabBar } from "react-navigation";
 import { connect } from "react-redux";
-import { theme } from "../common/theme";
+import { theme } from "./theme";
 
 type Props = {};
 

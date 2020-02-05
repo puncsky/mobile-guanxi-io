@@ -4,8 +4,8 @@ import { Query, QueryResult } from "react-apollo";
 import { FlatList, RefreshControl, View } from "react-native";
 import { Text } from "react-native";
 import { connect } from "react-redux";
+import { NavigationBar } from "../../common/navigation-bar";
 import { theme } from "../../common/theme";
-import { NavigationBar } from "../../components/navigation-bar";
 import i18n from "../../translations";
 import { ThemeProps } from "../../types/theme-props";
 

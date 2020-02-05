@@ -1,8 +1,8 @@
 import * as React from "react";
 import { View } from "react-native";
+import { NavigationBar } from "../../common/navigation-bar";
 import { ScreenHeight } from "../../common/screen-util";
 import { theme } from "../../common/theme";
-import { NavigationBar } from "../../components/navigation-bar";
 import i18n from "../../translations";
 import { ScreenProps } from "../../types/screen-props";
 import { About } from "./about";

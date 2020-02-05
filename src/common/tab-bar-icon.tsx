@@ -1,7 +1,7 @@
 import * as Icon from "@expo/vector-icons";
 import * as React from "react";
 import { connect } from "react-redux";
-import { theme } from "../common/theme";
+import { theme } from "./theme";
 interface Props {
   name: string;
   focused: boolean;

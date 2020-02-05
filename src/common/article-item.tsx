@@ -14,23 +14,23 @@ import {
 
 import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
-import { analytics } from "../common/analytics";
-import { apolloClient } from "../common/apollo-client";
-import { Constants } from "../common/constants";
+import { LoginWebView } from "../screens/mine-screen/login-web-view";
+import i18n from "../translations";
+import { Article } from "../types/article";
+import { analytics } from "./analytics";
+import { apolloClient } from "./apollo-client";
+import { Constants } from "./constants";
 import {
   ADD_FAVES,
   DELETE_FAVES,
   GET_FAVE_ARTICLE,
   GET_IO_ARTICLE
-} from "../common/gqls";
-import { isEnglish } from "../common/is-english";
-import { getEndpoint } from "../common/request";
-import { AppState } from "../common/store";
-import { theme } from "../common/theme";
-import { TimeUtil } from "../common/time-util";
-import { LoginWebView } from "../screens/mine-screen/login-web-view";
-import i18n from "../translations";
-import { Article } from "../types/article";
+} from "./gqls";
+import { isEnglish } from "./is-english";
+import { getEndpoint } from "./request";
+import { AppState } from "./store";
+import { theme } from "./theme";
+import { TimeUtil } from "./time-util";
 const ICON_SIZE = 18;
 const ICON_SIZE_SM = 14;
 
