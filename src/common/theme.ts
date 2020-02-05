@@ -36,10 +36,7 @@ const lightTheme = {
   inactiveBackgroundColor: "#fff",
   navBg: "#fff",
   navText: "#000",
-  titleText: "#0A0A0A",
-  contentText: "#333333",
   linkText: "#999999",
-  summaryText: "#999999",
   separator: "#CCCCCC"
 };
 
@@ -76,10 +73,7 @@ const darkTheme = {
   inactiveBackgroundColor: "#2E3235",
   navBg: "#2E3235",
   navText: "#fff",
-  titleText: "#0A0A0A",
-  contentText: "#333333",
   linkText: "#999999",
-  summaryText: "#999999",
   separator: "#CCCCCC"
 };
 

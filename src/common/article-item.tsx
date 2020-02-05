@@ -128,8 +128,8 @@ export const ArticleItem = connect((state: AppState) => {
           style={styles.rowCenter}
           onPress={onPress}
         >
-          <Icon.FontAwesome name={icon} size={fontSize} color={theme.primary} />
-          <Text style={[style, { color: theme.primary }]}>{title}</Text>
+          <Icon.FontAwesome name={icon} size={fontSize} color={theme.black80} />
+          <Text style={[style, { color: theme.black80 }]}>{title}</Text>
         </TouchableOpacity>
       );
     }
@@ -242,13 +242,13 @@ export const ArticleItem = connect((state: AppState) => {
             activeOpacity={1}
             onPress={this.onNavigateToBriefScreen}
           >
-            <Text style={[styles.titleText, { color: theme.titleText }]}>
+            <Text style={[styles.titleText, { color: theme.text01 }]}>
               {title}
             </Text>
-            <Text style={[styles.contentText, { color: theme.contentText }]}>
+            <Text style={[styles.contentText, { color: theme.text01 }]}>
               {short}
             </Text>
-            <Text style={[styles.summaryText, { color: theme.summaryText }]}>
+            <Text style={[styles.summaryText, { color: theme.text01 }]}>
               {`${shortDate} · ${i18n.t("views")} ${formattedVisitorCount}`}
             </Text>
           </TouchableOpacity>
@@ -308,14 +308,14 @@ const getStyles = () =>
     leftTopText: { color: theme.linkText, fontSize: 12 },
     rowCenter: { flexDirection: "row", alignItems: "center" },
     titleText: {
-      color: theme.titleText,
+      color: theme.text01,
       fontSize: 20,
       marginVertical: 10,
       lineHeight: 24
     },
-    contentText: { color: theme.contentText, fontSize: 16, lineHeight: 24 },
+    contentText: { color: theme.text01, fontSize: 16, lineHeight: 24 },
     summaryText: {
-      color: theme.summaryText,
+      color: theme.text01,
       fontSize: 14,
       marginVertical: 8
     },

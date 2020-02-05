@@ -1,6 +1,7 @@
 import { theme } from "./theme";
 
-export const readabilityStyles = `<style rel="stylesheet">
+// tslint:disable-next-line:max-func-body-length
+export const getReadabilityStyles = () => `<style rel="stylesheet">
 
 a strong {
   color: inherit;
@@ -60,19 +61,20 @@ h2 {
 
 body {
   color: ${theme.text01};
+  background-color: ${theme.white};
 }
 
 h1,
 h2,
 strong {
-  color: #333;
+  color: ${theme.text01};
 }
 
 /* 05 Balance */
 
 code,
 pre {
-  background: #eee;
+  background: ${theme.white};
 }
 
 code {
@@ -93,13 +95,13 @@ a {
 /* 07 Secondary colors */
 
 body {
-  background: white;
+  background: ${theme.white};
   color: ${theme.text01};
 }
 
 code,
 pre {
-  background: #f5f7f9;
+  background: ${theme.white};
   border-bottom: 1px solid #d8dee9;
   color: #a7adba;
   -moz-font-smoothing: grayscale;
@@ -178,7 +180,7 @@ header {
 }
 
 header h1 {
-  color: white;
+  color: ${theme.text01};
   font-size: 2.5em;
   font-weight: 300;
 }
@@ -186,7 +188,7 @@ header h1 {
 header a {
   border: 1px solid #e81c4f;
   border-radius: 290486px;
-  color: white;
+  color: ${theme.text01};
   font-size: 0.6em;
   letter-spacing: 0.2em;
   padding: 1em 2em;
@@ -198,7 +200,7 @@ header a {
 
 header a:hover {
   background: #e81c4f;
-  color: white;
+  color: ${theme.text01};
 }
 
 /* Classes */
@@ -249,7 +251,7 @@ html a.button {
 }
 
 .button:hover strong {
-  color: white !important;
+  color: ${theme.text01} !important;
 }
 
 .button.github strong {

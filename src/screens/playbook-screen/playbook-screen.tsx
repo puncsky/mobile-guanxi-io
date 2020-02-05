@@ -84,14 +84,16 @@ export const PlaybookScreen = connect((state: AppState) => {
               fetchMore,
               refetch
             }: QueryResult<{
-              ioArticles: Array<Article>;
+              playbookArticles: Array<Article>;
             }>) => {
               if (error) {
                 return (
                   <NetworkErrorView info={error.message} callback={refetch} />
                 );
               }
-              const listData = lodash.isUndefined(data) ? [] : data.ioArticles;
+              const listData = lodash.isUndefined(data)
+                ? []
+                : data.playbookArticles;
               return (
                 <FlatList
                   style={{ flex: 1 }}
@@ -109,7 +111,7 @@ export const PlaybookScreen = connect((state: AppState) => {
                             this.setState({ refreshing: false });
                           } catch (error) {
                             window.console.error(
-                              `failed to  refetch ioArticles: ${error}`
+                              `failed to  refetch playbookArticles: ${error}`
                             );
                           }
                         });
@@ -151,18 +153,18 @@ export const PlaybookScreen = connect((state: AppState) => {
                         updateQuery: (previousResult, { fetchMoreResult }) => {
                           const newData = lodash.isUndefined(fetchMoreResult)
                             ? []
-                            : fetchMoreResult.ioArticles;
+                            : fetchMoreResult.playbookArticles;
                           this.setState({
                             loadFinished: newData.length < this.pageLimit
                           });
                           return newData.length > 0 &&
                             lodash.findIndex(
-                              previousResult.ioArticles,
+                              previousResult.playbookArticles,
                               (article: Article) => article.id === newData[0].id
                             ) < 0
                             ? {
-                                ioArticles: [
-                                  ...previousResult.ioArticles,
+                                playbookArticles: [
+                                  ...previousResult.playbookArticles,
                                   ...newData
                                 ]
                               }
@@ -171,7 +173,7 @@ export const PlaybookScreen = connect((state: AppState) => {
                       });
                     } catch (error) {
                       window.console.error(
-                        `failed to fetch more ioArticles: ${error}`
+                        `failed to fetch more playbookArticles: ${error}`
                       );
                     }
                   }}

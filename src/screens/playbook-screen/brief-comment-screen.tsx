@@ -7,8 +7,8 @@ import { View } from "react-native";
 import { WebView } from "react-native-webview";
 import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
+import { getReadabilityStyles } from "../../common/get-readability-styles";
 import { NavigationBar } from "../../common/navigation-bar";
-import { readabilityStyles } from "../../common/readability-styles";
 import { theme } from "../../common/theme";
 import { TimeUtil } from "../../common/time-util";
 import i18n from "../../translations";
@@ -21,10 +21,9 @@ type Props = {
   currentTheme: ThemeProps;
 };
 
-const viewportTag = `<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-${readabilityStyles}`;
-
 function getHtml(content: string): string {
+  const viewportTag = `<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+${getReadabilityStyles()}`;
   return `<!doctype html>
 <html>
 

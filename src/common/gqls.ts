@@ -1,13 +1,8 @@
 import gql from "graphql-tag";
 
 export const GET_IO_ARTICLE = gql`
-  query ioArticles(
-    $skip: Int
-    $limit: Int
-    $enOnly: Boolean
-    $keyword: String
-  ) {
-    ioArticles(skip: $skip, limit: $limit, enOnly: $enOnly, keyword: $keyword) {
+  query playbookArticles($skip: Float!, $limit: Float!) {
+    playbookArticles(skip: $skip, limit: $limit) {
       id
       url
       isFave
@@ -62,13 +57,18 @@ export const ADD_PUSH_TOKEN = gql`
 `;
 
 export const GET_IO_ARTICLE_BY_TAG = gql`
-  query ioArticlesByTag(
+  query playbookArticlesByTag(
     $tag: String
     $skip: Int
     $limit: Int
     $enOnly: Boolean
   ) {
-    ioArticlesByTag(tag: $tag, skip: $skip, limit: $limit, enOnly: $enOnly) {
+    playbookArticlesByTag(
+      tag: $tag
+      skip: $skip
+      limit: $limit
+      enOnly: $enOnly
+    ) {
       id
       url
       isFave

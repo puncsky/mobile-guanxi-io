@@ -90,7 +90,7 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
             fetchMore,
             refetch
           }: QueryResult<{
-            ioArticlesByTag: Array<Article>;
+            playbookArticlesByTag: Array<Article>;
           }>) => {
             if (error) {
               return (
@@ -99,7 +99,7 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
             }
             const listData = lodash.isUndefined(data)
               ? []
-              : data.ioArticlesByTag;
+              : data.playbookArticlesByTag;
             return (
               <FlatList
                 style={{ flex: 1 }}
@@ -117,7 +117,7 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
                           this.setState({ refreshing: false });
                         } catch (error) {
                           window.console.error(
-                            `failed to  refetch ioArticlesByTag: ${error}`
+                            `failed to  refetch playbookArticlesByTag: ${error}`
                           );
                         }
                       });
@@ -161,18 +161,18 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
                       updateQuery: (previousResult, { fetchMoreResult }) => {
                         const newData = lodash.isUndefined(fetchMoreResult)
                           ? []
-                          : fetchMoreResult.ioArticlesByTag;
+                          : fetchMoreResult.playbookArticlesByTag;
                         this.setState({
                           loadFinished: newData.length < this.pageLimit
                         });
                         return newData.length > 0 &&
                           lodash.findIndex(
-                            previousResult.ioArticlesByTag,
+                            previousResult.playbookArticlesByTag,
                             (article: Article) => article.id === newData[0].id
                           ) < 0
                           ? {
-                              ioArticlesByTag: [
-                                ...previousResult.ioArticlesByTag,
+                              playbookArticlesByTag: [
+                                ...previousResult.playbookArticlesByTag,
                                 ...newData
                               ]
                             }
@@ -181,7 +181,7 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
                     });
                   } catch (error) {
                     window.console.error(
-                      `failed to fetch more ioArticlesByTag: ${error}`
+                      `failed to fetch more playbookArticlesByTag: ${error}`
                     );
                   }
                 }}
