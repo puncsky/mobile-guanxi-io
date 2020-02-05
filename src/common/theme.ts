@@ -5,17 +5,18 @@ const colorMode = colorScheme === "dark" ? "dark" : "light";
 const lightTheme = {
   name: "light",
 
-  primary: "#FBB03B",
-  secondary: "#0C8DE4",
+  primary: "#B46BD6",
+  secondary: "#278CFF",
   white: "#fff",
 
   black: "#000000",
-  black90: "#333333",
+  black95: "#050505",
   black80: "#999999",
   black60: "#CCCCCC",
   black40: "#E5E5E5",
   black20: "#F0F0F0",
   black10: "#F7F7F7",
+  black05: "#F2F2F2",
 
   text01: "#4c4c4c", //		Primary text, Body copy
 
@@ -27,10 +28,10 @@ const lightTheme = {
   nav01: "#011627", //	Global top bar
   nav02: "#20232a", //	CTA footer
 
-  tabIconDefault: "#ccc",
-  tabIconSelected: "#2f95dc",
-  activeTintColor: "#2f95dc",
-  inactiveTintColor: "#ccc",
+  tabIconDefault: "#999999",
+  tabIconSelected: "#B46BD6",
+  activeTintColor: "#B46BD6",
+  inactiveTintColor: "#999999",
   activeBackgroundColor: "#fff",
   inactiveBackgroundColor: "#fff",
   navBg: "#fff",
@@ -45,8 +46,8 @@ const lightTheme = {
 const darkTheme = {
   name: "dark",
 
-  primary: "#FBB03B",
-  secondary: "#0C8DE4",
+  primary: "#B46BD6",
+  secondary: "#278CFF",
   white: "#333333",
 
   black: "#FFF",
@@ -68,8 +69,8 @@ const darkTheme = {
   nav02: "#20232a", //	CTA footer
 
   tabIconDefault: "#ccc",
-  tabIconSelected: "#fbb03b",
-  activeTintColor: "#fbb03b",
+  tabIconSelected: "#B46BD6",
+  activeTintColor: "#B46BD6",
   inactiveTintColor: "#CFCFCF",
   activeBackgroundColor: "#2E3235",
   inactiveBackgroundColor: "#2E3235",
