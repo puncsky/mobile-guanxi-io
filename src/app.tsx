@@ -1,7 +1,7 @@
 import { Notifications, SplashScreen } from "expo";
 import { EventSubscription } from "fbemitter";
 import * as React from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { Platform, StatusBar, View } from "react-native";
 import { AppLoaderRoot } from "./app-loading";
 import { AppNavigatorContainer } from "./common/navigation/app-navigator-container";
 import { Providers } from "./common/providers";
@@ -65,7 +65,12 @@ export class App extends React.Component<Props, State> {
 }
 
 const AppContent = withTheme(() => (
-  <View style={styles.container}>
+  <View
+    style={{
+      flex: 1,
+      backgroundColor: theme.white
+    }}
+  >
     {Platform.OS === "ios" && (
       <StatusBar
         barStyle={theme.name === "dark" ? "light-content" : "dark-content"}
@@ -74,10 +79,3 @@ const AppContent = withTheme(() => (
     <AppNavigatorContainer />
   </View>
 ));
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.white
-  }
-});

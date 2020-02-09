@@ -3,7 +3,7 @@
 import * as lodash from "lodash";
 import * as React from "react";
 import { Query, QueryResult } from "react-apollo";
-import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
+import { FlatList, RefreshControl, View } from "react-native";
 import { connect } from "react-redux";
 import { analytics } from "../../common/analytics";
 import { apolloClient } from "../../common/apollo-client";
@@ -64,7 +64,12 @@ export const PlaybookScreen = connect((state: AppState) => {
     public render(): JSX.Element {
       const { locale } = this.props;
       return (
-        <View style={[styles.container, { backgroundColor: theme.white }]}>
+        <View
+          style={{
+            backgroundColor: theme.white,
+            flex: 1
+          }}
+        >
           <NavigationBar title={i18n.t("playbook")} />
           <Query
             query={GET_IO_ARTICLE}
@@ -186,10 +191,3 @@ export const PlaybookScreen = connect((state: AppState) => {
     }
   }
 );
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: theme.white,
-    flex: 1
-  }
-});

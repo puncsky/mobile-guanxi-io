@@ -8,9 +8,5 @@ export interface Article {
   forwardedFor: string;
   date: string;
   visitorCount: number;
-  tags: [Tag];
-}
-
-export interface Tag {
-  enum: string;
+  tags: [string];
 }

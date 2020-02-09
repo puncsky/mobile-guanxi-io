@@ -3,7 +3,7 @@ export const zh = {
   home: "首页",
   links: "关系",
   settings: "设置",
-  playbook: "剧本",
+  playbook: "攻略",
   mine: "我的",
   //mine
   reviewApp: "给个好评鼓励一下",
@@ -42,5 +42,9 @@ export const zh = {
   //flatlist
   refresh: "刷新",
   loading: "正在加载",
-  loadingFinished: "已全部加载完"
+  loadingFinished: "已全部加载完",
+  recommend: "推荐",
+
+  // error
+  networkError: "网络请求失败，请检查您的网络设置"
 };

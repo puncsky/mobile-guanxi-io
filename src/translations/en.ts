@@ -42,5 +42,10 @@ export const en = {
   //flatlist
   refresh: "Refresh",
   loading: "Loading",
-  loadingFinished: "Finished loading data"
+  loadingFinished: "Finished loading data",
+  recommend: "Recommend",
+
+  // error
+  networkError:
+    "Failed to make network requests. Please check you network settings."
 };

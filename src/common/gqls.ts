@@ -12,9 +12,7 @@ export const GET_IO_ARTICLE = gql`
       forwardedFor
       date
       visitorCount
-      tags {
-        enum
-      }
+      tags
     }
   }
 `;
@@ -31,9 +29,7 @@ export const GET_FAVE_ARTICLE = gql`
       forwardedFor
       date
       visitorCount
-      tags {
-        enum
-      }
+      tags
     }
   }
 `;

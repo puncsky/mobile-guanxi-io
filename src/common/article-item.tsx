@@ -57,7 +57,7 @@ export const ArticleItem = connect((state: AppState) => {
       const { item, navigation } = this.props;
       await analytics.track("tap_tags", { id: item.id });
       const { tags } = item;
-      const buttons = tags.map(item => item.enum);
+      const buttons = tags.map(item => item);
       buttons.push("Cancel");
       ActionSheet.showActionSheetWithOptions(
         {
@@ -67,7 +67,7 @@ export const ArticleItem = connect((state: AppState) => {
         },
         buttonIndex => {
           if (buttonIndex < tags.length) {
-            const tag = tags[buttonIndex].enum;
+            const tag = tags[buttonIndex];
             navigation.navigate("ArticlesByTag", { item: { tag, title: tag } });
           }
         }
@@ -191,10 +191,11 @@ export const ArticleItem = connect((state: AppState) => {
       const { item } = this.props;
       const { title, short, forwardedFor, date, visitorCount } = item;
 
-      let { isFave } = item;
-      if (this.state.faved !== undefined) {
-        isFave = this.state.faved;
-      }
+      // TODO(Tian): ignore for now
+      // let { isFave } = item;
+      // if (this.state.faved !== undefined) {
+      //   isFave = this.state.faved;
+      // }
       const arrUrls = String(forwardedFor).split("//");
       let formattedUrl;
       try {
@@ -231,12 +232,14 @@ export const ArticleItem = connect((state: AppState) => {
                 {formattedUrl}
               </Text>
             </View>
-            {this.renderBottomButton(
-              i18n.t("fave"),
-              isFave ? "bookmark" : "bookmark-o",
-              this.onFavorite,
-              true
-            )}
+            {/*
+            // @ts-ignore: TODO(tian) ignore this for now*/}
+            {/*{ this.renderBottomButton(*/}
+            {/*  i18n.t("fave"),*/}
+            {/*  isFave ? "bookmark" : "bookmark-o",*/}
+            {/*  this.onFavorite,*/}
+            {/*  true*/}
+            {/*)}*/}
           </View>
           <TouchableOpacity
             activeOpacity={1}
@@ -249,7 +252,11 @@ export const ArticleItem = connect((state: AppState) => {
               {short}
             </Text>
             <Text style={[styles.summaryText, { color: theme.text01 }]}>
-              {`${shortDate} · ${i18n.t("views")} ${formattedVisitorCount}`}
+              {`${shortDate}${
+                visitorCount
+                  ? ` · ${i18n.t("views")} ${formattedVisitorCount}`
+                  : ""
+              }`}
             </Text>
           </TouchableOpacity>
           <View

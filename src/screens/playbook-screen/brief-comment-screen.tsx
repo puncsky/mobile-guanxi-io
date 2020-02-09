@@ -66,10 +66,13 @@ export const BriefCommentScreen = connect(() => ({}))(
         visitorCount === null
           ? 0
           : visitorCount.toString().replace(/(\d)(?=(?:\d{3})+$)/g, "$1,");
+      const truthyVisitorCount = visitorCount
+        ? ` · ${i18n.t("views")} ${formatedVisitorCount}`
+        : "";
 
       const composedContent = `# ${title}
   
-  ${shortDate} · ${i18n.t("views")} ${formatedVisitorCount}
+  ${shortDate}${truthyVisitorCount}
   
   <hr/>
   
@@ -97,6 +100,7 @@ export const BriefCommentScreen = connect(() => ({}))(
             }}
           >
             <WebView
+              style={{ backgroundColor: theme.white }}
               showsVerticalScrollIndicator={false}
               source={{
                 html

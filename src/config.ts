@@ -5,5 +5,5 @@ export const config = {
     googleTid: "UA-43072488-3", // TODO
     mixpanelProjectToken: "" // TODO
   },
-  serverUrl: __DEV__ ? "https://915b7cce.ngrok.io/" : "https://guanxi.io/"
+  serverUrl: __DEV__ ? "https://53047541.ngrok.io/" : "https://guanxi.io/"
 };
