@@ -1,7 +1,7 @@
 export const en = {
   //bottom tab bar
   home: "Home",
-  links: "Links",
+  links: "Relationships",
   settings: "Settings",
   playbook: "Playbook",
   mine: "Mine",

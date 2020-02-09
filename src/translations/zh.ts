@@ -1,7 +1,7 @@
 export const zh = {
   //bottom tab bar
   home: "首页",
-  links: "链接",
+  links: "关系",
   settings: "设置",
   playbook: "剧本",
   mine: "我的",
