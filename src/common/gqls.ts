@@ -1,12 +1,17 @@
 import gql from "graphql-tag";
 
 export const GET_IO_ARTICLE = gql`
-  query playbookArticles($skip: Float!, $limit: Float!) {
-    playbookArticles(skip: $skip, limit: $limit) {
+  query playbookArticles(
+    $skip: Float!
+    $limit: Float!
+    $tag: String
+    $locale: String
+  ) {
+    playbookArticles(skip: $skip, limit: $limit, tag: $tag, locale: $locale) {
       id
       url
       isFave
-      short
+      description
       title
       content
       forwardedFor
@@ -23,7 +28,7 @@ export const GET_FAVE_ARTICLE = gql`
       id
       url
       isFave
-      short
+      description
       title
       content
       forwardedFor
@@ -49,34 +54,5 @@ export const DELETE_FAVES = gql`
 export const ADD_PUSH_TOKEN = gql`
   mutation addPushToken($pushToken: String) {
     addPushToken(token: $pushToken)
-  }
-`;
-
-export const GET_IO_ARTICLE_BY_TAG = gql`
-  query playbookArticlesByTag(
-    $tag: String
-    $skip: Int
-    $limit: Int
-    $enOnly: Boolean
-  ) {
-    playbookArticlesByTag(
-      tag: $tag
-      skip: $skip
-      limit: $limit
-      enOnly: $enOnly
-    ) {
-      id
-      url
-      isFave
-      short
-      title
-      content
-      forwardedFor
-      date
-      visitorCount
-      tags {
-        enum
-      }
-    }
   }
 `;

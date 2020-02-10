@@ -1,16 +1,12 @@
 /* tslint:disable:no-any */
-// @ts-ignore
-import * as Icon from "@expo/vector-icons";
 import * as lodash from "lodash";
 import * as React from "react";
 import { Query, QueryResult } from "react-apollo";
 import { FlatList, RefreshControl, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
-import { apolloClient } from "../../common/apollo-client";
 import { ArticleItem } from "../../common/article-item";
-import { GET_IO_ARTICLE_BY_TAG } from "../../common/gqls";
-import { isEnglish } from "../../common/is-english";
+import { GET_IO_ARTICLE } from "../../common/gqls";
 import {
   EmptyView,
   LoadingFinishedFooterView,
@@ -67,39 +63,33 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
     // tslint:disable-next-line:max-func-body-length
     public renderQueryList = (item: DiscoveryItem) => {
       const { locale } = this.props;
-      const enOnly =
-        item.enOnly === undefined ? isEnglish(locale) : item.enOnly;
       return (
         <Query
-          query={GET_IO_ARTICLE_BY_TAG}
+          query={GET_IO_ARTICLE}
           ssr={false}
           fetchPolicy="network-only"
           variables={{
             tag: item.tag,
             skip: (this.page - 1) * this.pageLimit,
             limit: this.pageLimit,
-            enOnly
+            locale
           }}
-          client={apolloClient}
         >
-          {// @ts-ignore
-          ({
+          {({
             loading,
             error,
             data,
             fetchMore,
             refetch
           }: QueryResult<{
-            playbookArticlesByTag: Array<Article>;
+            playbookArticles: Array<Article>;
           }>) => {
             if (error) {
               return (
                 <NetworkErrorView info={error.message} callback={refetch} />
               );
             }
-            const listData = lodash.isUndefined(data)
-              ? []
-              : data.playbookArticlesByTag;
+            const listData = (data && data.playbookArticles) || [];
             return (
               <FlatList
                 style={{ flex: 1 }}
@@ -117,7 +107,7 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
                           this.setState({ refreshing: false });
                         } catch (error) {
                           window.console.error(
-                            `failed to  refetch playbookArticlesByTag: ${error}`
+                            `failed to  refetch playbookArticles: ${error}`
                           );
                         }
                       });
@@ -155,24 +145,24 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
                         tag: item.tag,
                         skip: listData.length,
                         limit: this.pageLimit,
-                        enOnly
+                        locale
                       },
                       // @ts-ignore
                       updateQuery: (previousResult, { fetchMoreResult }) => {
                         const newData = lodash.isUndefined(fetchMoreResult)
                           ? []
-                          : fetchMoreResult.playbookArticlesByTag;
+                          : fetchMoreResult.playbookArticles;
                         this.setState({
                           loadFinished: newData.length < this.pageLimit
                         });
                         return newData.length > 0 &&
                           lodash.findIndex(
-                            previousResult.playbookArticlesByTag,
+                            previousResult.playbookArticles,
                             (article: Article) => article.id === newData[0].id
                           ) < 0
                           ? {
-                              playbookArticlesByTag: [
-                                ...previousResult.playbookArticlesByTag,
+                              playbookArticles: [
+                                ...previousResult.playbookArticles,
                                 ...newData
                               ]
                             }
@@ -181,7 +171,7 @@ export const ArticlesByTagScreen = connect((state: AppState) => {
                     });
                   } catch (error) {
                     window.console.error(
-                      `failed to fetch more playbookArticlesByTag: ${error}`
+                      `failed to fetch more playbookArticles: ${error}`
                     );
                   }
                 }}

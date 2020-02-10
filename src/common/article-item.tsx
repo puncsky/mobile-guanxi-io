@@ -26,7 +26,6 @@ import {
   GET_FAVE_ARTICLE,
   GET_IO_ARTICLE
 } from "./gqls";
-import { isEnglish } from "./is-english";
 import { getEndpoint } from "./request";
 import { AppState } from "./store";
 import { theme } from "./theme";
@@ -163,7 +162,7 @@ export const ArticleItem = connect((state: AppState) => {
               variables: {
                 skip: 0,
                 limit: 100,
-                enOnly: isEnglish(locale)
+                locale
               }
             }
           ]
@@ -189,7 +188,7 @@ export const ArticleItem = connect((state: AppState) => {
     // tslint:disable-next-line:max-func-body-length
     public render(): JSX.Element {
       const { item } = this.props;
-      const { title, short, forwardedFor, date, visitorCount } = item;
+      const { title, description, forwardedFor, date, visitorCount } = item;
 
       // TODO(Tian): ignore for now
       // let { isFave } = item;
@@ -249,7 +248,7 @@ export const ArticleItem = connect((state: AppState) => {
               {title}
             </Text>
             <Text style={[styles.contentText, { color: theme.text01 }]}>
-              {short}
+              {description}
             </Text>
             <Text style={[styles.summaryText, { color: theme.text01 }]}>
               {`${shortDate}${

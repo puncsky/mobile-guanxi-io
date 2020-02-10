@@ -9,7 +9,6 @@ import { analytics } from "../../common/analytics";
 import { apolloClient } from "../../common/apollo-client";
 import { ArticleItem } from "../../common/article-item";
 import { GET_IO_ARTICLE } from "../../common/gqls";
-import { isEnglish } from "../../common/is-english";
 import {
   EmptyView,
   LoadingFinishedFooterView,
@@ -78,7 +77,7 @@ export const PlaybookScreen = connect((state: AppState) => {
             variables={{
               skip: (this.page - 1) * this.pageLimit,
               limit: this.pageLimit,
-              enOnly: isEnglish(locale)
+              locale
             }}
             client={apolloClient}
           >
@@ -96,9 +95,7 @@ export const PlaybookScreen = connect((state: AppState) => {
                   <NetworkErrorView info={error.message} callback={refetch} />
                 );
               }
-              const listData = lodash.isUndefined(data)
-                ? []
-                : data.playbookArticles;
+              const listData = (data && data.playbookArticles) || [];
               return (
                 <FlatList
                   style={{ flex: 1 }}

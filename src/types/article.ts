@@ -1,6 +1,6 @@
 export interface Article {
   id: string;
-  short: string;
+  description: string;
   isFave: Boolean;
   url: string;
   title: string;
