@@ -9,6 +9,8 @@ import { BriefCommentScreen } from "../../screens/playbook-screen/brief-comment-
 import { OriginalLinkScreen } from "../../screens/playbook-screen/orginal-link-screen";
 import { MainTabNavigator } from "./main-tab-navigator";
 
+import { ContactDetailScreen } from "../../screens/relationships-screen/contact-detail-screen";
+
 const RootScreen = createSwitchNavigator({
   Main: MainTabNavigator
 });
@@ -23,7 +25,8 @@ const AppRoot = createStackNavigator(
     },
     BriefComment: BriefCommentScreen,
     OriginalLink: OriginalLinkScreen,
-    ArticlesByTag: ArticlesByTagScreen
+    ArticlesByTag: ArticlesByTagScreen,
+    ContactDetail: ContactDetailScreen
   },
   {
     headerMode: "none"
