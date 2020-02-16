@@ -5,6 +5,7 @@ import * as StoreReview from "expo-store-review";
 import * as WebBrowser from "expo-web-browser";
 import React from "react";
 import { Alert, Platform, ScrollView, Switch, View } from "react-native";
+import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
 import { analytics } from "../../common/analytics";
 import { ListHeader } from "../../common/list-header";
@@ -21,7 +22,7 @@ const Item = List.Item;
 const Brief = Item.Brief;
 
 type AboutProps = {
-  // navigation: any;
+  navigation: NavigationScreenProp<string>;
   authToken: string;
   locale: string;
   actionLogout: Function;
@@ -125,6 +126,16 @@ export const About = connect(
           >
             {i18n.t("theme")}
             <Brief>{currentTheme === "dark" ? "Dark" : "Light"}</Brief>
+          </Item>
+
+          <Item
+            arrow="horizontal"
+            style={backgroundColor}
+            onPress={() => {
+              this.props.navigation.navigate("Debug");
+            }}
+          >
+            {i18n.t("debug")}
           </Item>
 
           <Item

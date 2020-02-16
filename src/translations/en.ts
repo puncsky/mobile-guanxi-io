@@ -13,6 +13,7 @@ export const en = {
   english: "English",
   currentVersion: "Version",
   theme: "Theme",
+  debug: "Debug",
   //logout alert
   logoutAlertMsg: "Are you sure you want to log out?",
   logoutAlertCancel: "Cancel",
