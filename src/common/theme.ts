@@ -10,7 +10,7 @@ const lightTheme = {
   white: "#fff",
 
   black: "#000000",
-  black95: "#050505",
+  black90: "#050505",
   black80: "#999999",
   black60: "#CCCCCC",
   black40: "#E5E5E5",

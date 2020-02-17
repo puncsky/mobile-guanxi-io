@@ -13,6 +13,8 @@ import { PlaybookScreen } from "../../screens/playbook-screen/playbook-screen";
 import { RelationshipsScreen } from "../../screens/relationships-screen/relationships-screen";
 import { MainTabNavigator } from "./main-tab-navigator";
 
+import { ContactDetailScreen } from "../../screens/relationships-screen/contact-detail-screen";
+
 const RootScreen = createSwitchNavigator({
   Main: MainTabNavigator
 });
@@ -28,6 +30,7 @@ const AppRoot = createStackNavigator(
     BriefComment: BriefCommentScreen,
     OriginalLink: OriginalLinkScreen,
     ArticlesByTag: ArticlesByTagScreen,
+    ContactDetail: ContactDetailScreen,
     Debug: DebugScreen,
     HomeDebug: HomeScreen,
     RelationshipsDebug: RelationshipsScreen,

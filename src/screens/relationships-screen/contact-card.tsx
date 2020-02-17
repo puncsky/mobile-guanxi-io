@@ -1,12 +1,26 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { NavigationScreenProp } from "react-navigation";
+import { Constants } from "../../common/constants";
 import { theme } from "../../common/theme";
 import { Contact } from "./relationships-screen";
 
-export function ContactCard({ item }: { item: Contact }): JSX.Element {
+export function ContactCard({
+  item,
+  navigation
+}: {
+  item: Contact;
+  navigation: NavigationScreenProp<String>;
+}): JSX.Element {
   const styles = getStyles();
   return (
-    <View style={styles.contactCard}>
+    <TouchableOpacity
+      style={styles.contactCard}
+      activeOpacity={Constants.activeOpacity}
+      onPress={() => {
+        navigation.navigate("ContactDetail", { item });
+      }}
+    >
       {item.avatarUrl ? (
         <Image style={styles.avatar} source={{ uri: item.avatarUrl }} />
       ) : (
@@ -17,7 +31,7 @@ export function ContactCard({ item }: { item: Contact }): JSX.Element {
         <Text style={styles.name}>{item.name}</Text>
         <Text>{firstOne(item.emails) || firstOne(item.phones)}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

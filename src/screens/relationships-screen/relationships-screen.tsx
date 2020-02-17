@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { Query, QueryResult } from "react-apollo";
 import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
+import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
 import { NavigationBar } from "../../common/navigation-bar";
 import { ScreenHeight } from "../../common/screen-util";
@@ -36,6 +37,7 @@ export const GET_CONTACTS = gql`
 
 type Props = {
   currentTheme: ThemeProps;
+  navigation: NavigationScreenProp<String>;
 };
 
 export const RelationshipsScreen = connect(() => {
@@ -44,6 +46,7 @@ export const RelationshipsScreen = connect(() => {
   class RelationshipsScreenInner extends React.Component<Props> {
     public render(): JSX.Element {
       const styles = getStyles();
+      const { navigation } = this.props;
       return (
         <View style={{ ...styles.background, height: ScreenHeight }}>
           <NavigationBar title={i18n.t("links")} />
@@ -67,7 +70,7 @@ export const RelationshipsScreen = connect(() => {
                     `${item._id} - ${index}`
                   }
                   renderItem={({ item }: { item: Contact }) => (
-                    <ContactCard item={item} />
+                    <ContactCard item={item} navigation={navigation} />
                   )}
                 />
               );
