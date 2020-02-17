@@ -13,6 +13,7 @@ export function Providers({
   children: JSX.Element | Array<JSX.Element>;
 }): JSX.Element {
   return (
+    //@ts-ignore
     <Provider store={store}>
       <AntdProviderContainer>
         <PersistGate persistor={persistor}>
