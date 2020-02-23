@@ -1,39 +1,16 @@
-import gql from "graphql-tag";
 import * as React from "react";
 import { Query, QueryResult } from "react-apollo";
 import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
+import { GET_CONTACTS } from "../../common/gqls";
 import { NavigationBar } from "../../common/navigation-bar";
 import { ScreenHeight } from "../../common/screen-util";
 import { theme } from "../../common/theme";
 import i18n from "../../translations";
+import { Contact } from "../../types/contact";
 import { ThemeProps } from "../../types/theme-props";
 import { ContactCard } from "./contact-card";
-
-export type Contact = {
-  _id: string;
-  emails: string;
-  phones: string;
-  name: string;
-  avatarUrl: string;
-  createAt: Date;
-  updateAt: Date;
-};
-
-export const GET_CONTACTS = gql`
-  query contacts($offset: Float, $limit: Float) {
-    contacts(offset: $offset, limit: $limit) {
-      _id
-      emails
-      name
-      avatarUrl
-      phones
-      createAt
-      updateAt
-    }
-  }
-`;
 
 type Props = {
   currentTheme: ThemeProps;

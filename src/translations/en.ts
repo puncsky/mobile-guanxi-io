@@ -48,5 +48,11 @@ export const en = {
 
   // error
   networkError:
-    "Failed to make network requests. Please check you network settings."
+    "Failed to make network requests. Please check you network settings.",
+
+  //contact actions
+  cancel: "Cancel",
+  sendEmail: "Send email",
+  call: "Call",
+  sendMsg: "Send message"
 };

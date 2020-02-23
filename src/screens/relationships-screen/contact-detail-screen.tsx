@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import { NavigationBar } from "../../common/navigation-bar";
 import { theme } from "../../common/theme";
 import { ContactActions } from "./contact-actions";
+import { ContactHeader } from "./contact-header";
 import { ReminderTimer } from "./reminder-timer";
-
 type Props = {
   navigation: NavigationScreenProp<String>;
 };
@@ -24,15 +24,7 @@ export const ContactDetailScreen = connect(() => {
         <View style={styles.background}>
           <NavigationBar title={contact.name} showBack />
           <View style={[styles.background, styles.pad]}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={styles.nameCircleBg}>
-                <Text style={styles.nameTextInCircle}>T P</Text>
-              </View>
-              <View style={styles.nameMailContainer}>
-                <Text style={styles.nameText}>Tian Pan</Text>
-                <Text style={styles.mailText}>puncsky@qq.com</Text>
-              </View>
-            </View>
+            <ContactHeader item={contact} />
 
             <View style={{ flexDirection: "row", marginTop: 20 }}>
               <View style={[styles.iconCircleBg, { marginRight: 5 }]}>
@@ -56,7 +48,7 @@ export const ContactDetailScreen = connect(() => {
               G:1404744502
             </Text>
 
-            <ContactActions />
+            <ContactActions item={contact} />
 
             <View
               style={{

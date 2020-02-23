@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 
+//playbook
 export const GET_IO_ARTICLE = gql`
   query playbookArticles(
     $skip: Float!
@@ -54,5 +55,37 @@ export const DELETE_FAVES = gql`
 export const ADD_PUSH_TOKEN = gql`
   mutation addPushToken($pushToken: String) {
     addPushToken(token: $pushToken)
+  }
+`;
+
+//relationship
+
+export const GET_CONTACTS = gql`
+  query contacts($offset: Float, $limit: Float) {
+    contacts(offset: $offset, limit: $limit) {
+      _id
+      emails
+      name
+      avatarUrl
+      phones
+      address
+      bornAt
+      bornAddress
+      knownAt
+      knownSource
+      extraversionIntroversion
+      intuitingSensing
+      thinkingFeeling
+      planingPerceiving
+      tdp
+      workingOn
+      desire
+      title
+      linkedin
+      facebook
+      github
+      createAt
+      updateAt
+    }
   }
 `;

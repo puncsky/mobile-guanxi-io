@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
-import { Constants } from "../../common/constants";
+import { ActiveOpacity } from "../../common/active-opacity";
 import { theme } from "../../common/theme";
-import { Contact } from "./relationships-screen";
+import { Contact } from "../../types/contact";
 
 export function ContactCard({
   item,
@@ -16,7 +16,7 @@ export function ContactCard({
   return (
     <TouchableOpacity
       style={styles.contactCard}
-      activeOpacity={Constants.activeOpacity}
+      activeOpacity={ActiveOpacity.value}
       onPress={() => {
         navigation.navigate("ContactDetail", { item });
       }}
@@ -35,8 +35,8 @@ export function ContactCard({
   );
 }
 
-function firstOne(str: string): string {
-  return String(str).split(",")[0];
+function firstOne(strs: Array<string>): string {
+  return strs.length > 0 ? strs[0] : "";
 }
 
 const getStyles = () =>
