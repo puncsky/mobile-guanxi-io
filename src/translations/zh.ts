@@ -47,5 +47,11 @@ export const zh = {
   recommend: "推荐",
 
   // error
-  networkError: "网络请求失败，请检查您的网络设置"
+  networkError: "网络请求失败，请检查您的网络设置",
+
+  //contact actions
+  cancel: "取消",
+  sendEmail: "发邮件",
+  call: "打电话",
+  sendMsg: "发短信"
 };

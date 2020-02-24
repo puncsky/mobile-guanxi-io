@@ -17,9 +17,9 @@ import { connect } from "react-redux";
 import { LoginWebView } from "../screens/mine-screen/login-web-view";
 import i18n from "../translations";
 import { Article } from "../types/article";
+import { ActiveOpacity } from "./active-opacity";
 import { analytics } from "./analytics";
 import { apolloClient } from "./apollo-client";
-import { Constants } from "./constants";
 import {
   ADD_FAVES,
   DELETE_FAVES,
@@ -123,7 +123,7 @@ export const ArticleItem = connect((state: AppState) => {
       const style = isSmall ? styles.buttonTextSm : styles.buttonText;
       return (
         <TouchableOpacity
-          activeOpacity={Constants.activeOpacity}
+          activeOpacity={ActiveOpacity.value}
           style={styles.rowCenter}
           onPress={onPress}
         >
