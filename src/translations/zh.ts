@@ -53,5 +53,18 @@ export const zh = {
   cancel: "取消",
   sendEmail: "发邮件",
   call: "打电话",
-  sendMsg: "发短信"
+  sendMsg: "发短信",
+  //home
+  past: "过去",
+  today: "今天",
+  future: "将来",
+  sun: "周日",
+  mon: "周一",
+  tue: "周二",
+  wed: "周三",
+  thu: "周四",
+  fri: "周五",
+  sat: "周六",
+  //predict
+  predict: "预测"
 };

@@ -1,14 +1,19 @@
 import * as React from "react";
 import { useState } from "react";
 import { Modal, Text, TouchableHighlight, View } from "react-native";
-import { NavigationBar } from "../common/navigation-bar";
-import i18n from "../translations";
-
+import { NavigationScreenProp } from "react-navigation";
+import { NavigationBar } from "../../common/navigation-bar";
+import i18n from "../../translations";
+import { TaskDisplay } from "./task-display";
 type State = {
   shouldDisplayModal: boolean;
 };
 
-export class HomeScreen extends React.Component<{}, State> {
+type Props = {
+  navigation: NavigationScreenProp<string>;
+};
+
+export class HomeScreen extends React.Component<Props, State> {
   public state: State = {
     shouldDisplayModal: false
   };
@@ -17,6 +22,11 @@ export class HomeScreen extends React.Component<{}, State> {
     return (
       <View>
         <NavigationBar title={i18n.t("home")} />
+        <TaskDisplay
+          //@ts-ignore
+          tasks={[{ due: new Date() }]}
+          navigation={this.props.navigation}
+        />
         <TaskModal />
       </View>
     );
