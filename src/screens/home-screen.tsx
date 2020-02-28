@@ -1,9 +1,7 @@
-import { Modal } from "@ant-design/react-native";
 import * as React from "react";
 import { useState } from "react";
-import { Text, TouchableHighlight, View } from "react-native";
+import { Modal, Text, TouchableHighlight, View } from "react-native";
 import { NavigationBar } from "../common/navigation-bar";
-import { navigationBarHeight, ScreenHeight } from "../common/screen-util";
 import i18n from "../translations";
 
 type State = {
@@ -19,31 +17,35 @@ export class HomeScreen extends React.Component<{}, State> {
     return (
       <View>
         <NavigationBar title={i18n.t("home")} />
-        <TaskAntdModal />
+        <TaskModal />
       </View>
     );
   }
 }
 
-export function TaskAntdModal(): JSX.Element {
+export function TaskModal(): JSX.Element {
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={{ marginTop: 22, backgroundColor: "red" }}>
+    <View style={{ marginTop: 22 }}>
       <Modal
-        animationType="slide-up"
+        animationType="slide"
         transparent={false}
-        popup
         visible={modalVisible}
-        onClose={() => {
+        presentationStyle={"pageSheet"}
+        onDismiss={() => {
+          setModalVisible(false);
+        }}
+        onRequestClose={() => {
           setModalVisible(false);
         }}
       >
-        <View style={{ height: ScreenHeight - navigationBarHeight + 30 }}>
+        <View style={{ marginTop: 22 }}>
           <View>
             <Text>Hello World!</Text>
+
             <TouchableHighlight
               onPress={() => {
-                setModalVisible(false);
+                setModalVisible(!modalVisible);
               }}
             >
               <Text>Hide Modal</Text>
@@ -70,53 +72,3 @@ export function TaskAntdModal(): JSX.Element {
     </View>
   );
 }
-
-// export function TaskModal(): JSX.Element {
-//   const [modalVisible, setModalVisible] = useState(false);
-//   return (
-//     <View style={{ marginTop: 22 }}>
-//       <Modal
-//         animationType="slide"
-//         transparent={false}
-//         visible={modalVisible}
-//         presentationStyle={"pageSheet"}
-//         onDismiss={() => {
-//           setModalVisible(false);
-//         }}
-//         onRequestClose={() => {
-//           setModalVisible(false);
-//         }}
-//       >
-//         <View style={{ marginTop: 22 }}>
-//           <View>
-//             <Text>Hello World!</Text>
-
-//             <TouchableHighlight
-//               onPress={() => {
-//                 setModalVisible(!modalVisible);
-//               }}
-//             >
-//               <Text>Hide Modal</Text>
-//             </TouchableHighlight>
-//           </View>
-//         </View>
-//       </Modal>
-
-//       <TouchableHighlight
-//         onPress={() => {
-//           setModalVisible(true);
-//         }}
-//       >
-//         <Text>Show Modal</Text>
-//       </TouchableHighlight>
-
-//       <TouchableHighlight
-//         onPress={() => {
-//           setModalVisible(false);
-//         }}
-//       >
-//         <Text>Hide Modal</Text>
-//       </TouchableHighlight>
-//     </View>
-//   );
-// }
