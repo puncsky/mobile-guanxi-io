@@ -6,7 +6,6 @@ import {
 
 import { DebugScreen } from "../../screens/debug-screen/debug-screen";
 import { HomeScreen } from "../../screens/home-screen/home-screen";
-import { TaskPredictScreen } from "../../screens/home-screen/task-predict-screen";
 import { ArticlesByTagScreen } from "../../screens/playbook-screen/articles-by-tag-screen";
 import { BriefCommentScreen } from "../../screens/playbook-screen/brief-comment-screen";
 import { OriginalLinkScreen } from "../../screens/playbook-screen/orginal-link-screen";
@@ -34,8 +33,7 @@ const AppRoot = createStackNavigator(
     Debug: DebugScreen,
     HomeDebug: HomeScreen,
     RelationshipsDebug: RelationshipsScreen,
-    PlaybookDebug: PlaybookScreen,
-    TaskPredict: TaskPredictScreen
+    PlaybookDebug: PlaybookScreen
   },
   {
     headerMode: "none"

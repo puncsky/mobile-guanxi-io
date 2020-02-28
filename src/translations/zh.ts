@@ -65,6 +65,6 @@ export const zh = {
   thu: "周四",
   fri: "周五",
   sat: "周六",
-  //predict
-  predict: "预测"
+  due: "截止",
+  items: "个项"
 };

@@ -22,7 +22,8 @@ const lightTheme = {
 
   error: "#E54937", //	Error
   success: "#07A35A", //	Success
-  warning: "#FFA000", //	Warning
+  warning: "#F9CC64", //	Warning
+  warning01: "#FAF0C7",
   information: "#5aaafa", //	Information
 
   nav01: "#011627", //	Global top bar
@@ -59,7 +60,8 @@ const darkTheme = {
 
   error: "#E54937", //	Error
   success: "#07A35A", //	Success
-  warning: "#FFA000", //	Warning
+  warning: "#F9CC64", //	Warning
+  warning01: "#FAF0C7",
   information: "#5aaafa", //	Information
 
   nav01: "#011627", //	Global top bar
