@@ -95,6 +95,7 @@
     "redux-devtools-extension": "2.13.8",
     "redux-persist": "5.10.0",
     "redux-thunk": "2.3.0",
+    "rrule": "^2.6.4",
     "sentry-expo": "~2.0.0"
   },
   "devDependencies": {

@@ -10,7 +10,7 @@ import { ThemedBottomTabBar } from "../themed-bottom-tab-bar";
 
 import { TFuncType } from "../../types/screen-props";
 
-import { HomeScreen } from "../../screens/home-screen";
+import { HomeScreen } from "../../screens/home-screen/home-screen";
 import { MineScreen } from "../../screens/mine-screen/mine-screen";
 import { PlaybookScreen } from "../../screens/playbook-screen/playbook-screen";
 import { RelationshipsScreen } from "../../screens/relationships-screen/relationships-screen";

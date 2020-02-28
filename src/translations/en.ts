@@ -54,5 +54,18 @@ export const en = {
   cancel: "Cancel",
   sendEmail: "Send email",
   call: "Call",
-  sendMsg: "Send message"
+  sendMsg: "Send message",
+  //home
+  past: "Past",
+  today: "Today",
+  future: "Future",
+  sun: "Sun",
+  mon: "Mon",
+  tue: "Tue",
+  wed: "Wed",
+  thu: "Thu",
+  fri: "Fri",
+  sat: "Sat",
+  //predict
+  predict: "Predict"
 };
