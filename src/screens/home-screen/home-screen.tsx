@@ -23,11 +23,12 @@ export class HomeScreen extends React.Component<Props, State> {
       <View>
         <NavigationBar title={i18n.t("home")} />
         <TaskDisplay
-          //@ts-ignore
-          tasks={[{ due: new Date() }]}
-          navigation={this.props.navigation}
+          tasks={[
+            { id: "12", due: new Date(), done: false, title: "test1" },
+            { id: "1234", due: new Date(), done: false, title: "test2" }
+          ]}
         />
-        <TaskModal />
+        {/* <TaskModal /> */}
       </View>
     );
   }

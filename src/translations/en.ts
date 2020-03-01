@@ -66,6 +66,6 @@ export const en = {
   thu: "Thu",
   fri: "Fri",
   sat: "Sat",
-  //predict
-  predict: "Predict"
+  due: "Due",
+  items: "items"
 };
