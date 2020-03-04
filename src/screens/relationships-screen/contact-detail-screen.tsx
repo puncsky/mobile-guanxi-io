@@ -7,6 +7,7 @@ import { NavigationBar } from "../../common/navigation-bar";
 import { theme } from "../../common/theme";
 import { ContactActions } from "./contact-actions";
 import { ContactHeader } from "./contact-header";
+import { InteractionsView } from "./interactions-view";
 import { ReminderTimer } from "./reminder-timer";
 type Props = {
   navigation: NavigationScreenProp<String>;
@@ -72,6 +73,7 @@ export const ContactDetailScreen = connect(() => {
             </View>
             <Text style={styles.reminderText}>Reminder</Text>
             <ReminderTimer dateText="Sun Apr 5, 2020" dayText="1D" />
+            <InteractionsView contactId={contact._id} isSelf={true} />
           </View>
         </View>
       );

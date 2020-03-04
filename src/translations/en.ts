@@ -45,7 +45,7 @@ export const en = {
   loading: "Loading",
   loadingFinished: "Finished loading data",
   recommend: "Recommend",
-
+  noData: "No data for now",
   // error
   networkError:
     "Failed to make network requests. Please check you network settings.",
@@ -67,5 +67,15 @@ export const en = {
   fri: "Fri",
   sat: "Sat",
   due: "Due",
-  items: "items"
+  items: "items",
+  //interaction-item
+  edit: "Edit",
+  delete: "Delete",
+  sureToDelete: "Sure to delete？",
+  deleteSuccess: "Delete successful",
+  upsertSuccess: "Update successful",
+  confirm: "Confirm",
+  reSelect: "Select again",
+  noteHolder: "Enter your comment here...",
+  open: "Open"
 };
