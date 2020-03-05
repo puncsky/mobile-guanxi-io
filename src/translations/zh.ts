@@ -45,7 +45,7 @@ export const zh = {
   loading: "正在加载",
   loadingFinished: "已全部加载完",
   recommend: "推荐",
-
+  noData: "暂无数据",
   // error
   networkError: "网络请求失败，请检查您的网络设置",
 
@@ -66,5 +66,15 @@ export const zh = {
   fri: "周五",
   sat: "周六",
   due: "截止",
-  items: "个项"
+  items: "个项",
+  //interaction-item
+  edit: "编辑",
+  delete: "删除",
+  sureToDelete: "确定要删除吗？",
+  deleteSuccess: "删除成功",
+  upsertSuccess: "更新成功",
+  confirm: "确定",
+  reSelect: "重新选择",
+  noteHolder: "在此输入你的备注...",
+  open: "公开"
 };

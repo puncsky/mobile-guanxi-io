@@ -29,10 +29,11 @@ export const EmptyView = connect(() => ({}))(
       return (
         <View
           style={{
-            width,
+            width: "100%",
             flex: 1,
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            minHeight: 100
           }}
         >
           <Text
@@ -119,7 +120,7 @@ export const LoadingFinishedFooterView = connect(() => ({}))(
         <View
           style={{
             height: 40,
-            width,
+            width: "100%",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
@@ -148,7 +149,7 @@ export const LoadingFooterView = connect(() => ({}))(
         <View
           style={{
             height: 40,
-            width,
+            width: "100%",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
