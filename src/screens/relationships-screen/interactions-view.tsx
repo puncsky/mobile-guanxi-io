@@ -1,7 +1,15 @@
+import * as Icon from "@expo/vector-icons";
 import * as lodash from "lodash";
 import * as React from "react";
 import { Query, QueryResult } from "react-apollo";
-import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from "react-native";
 import { apolloClient } from "../../common/apollo-client";
 import { GET_INTERACTIONS } from "../../common/gqls";
 import {
@@ -73,26 +81,6 @@ export class InteractionsView extends React.Component<Props, State> {
               <FlatList
                 style={styles.container}
                 data={listData}
-                refreshControl={
-                  <RefreshControl
-                    refreshing={
-                      refreshing || (loading && listData.length === 0)
-                    }
-                    tintColor={theme.primary}
-                    onRefresh={async () => {
-                      this.setState({ refreshing: true }, async () => {
-                        try {
-                          await refetch();
-                          this.setState({ refreshing: false });
-                        } catch (error) {
-                          window.console.error(
-                            `failed to  refetch interactions: ${error}`
-                          );
-                        }
-                      });
-                    }}
-                  />
-                }
                 keyExtractor={(item: Interaction, index: number) =>
                   `${item.id} - ${index}`
                 }
@@ -119,8 +107,48 @@ export class InteractionsView extends React.Component<Props, State> {
                     <LoadingFooterView />
                   );
                 }}
+                ListHeaderComponent={() => {
+                  return refreshing ? (
+                    <ActivityIndicator size="large" color={theme.primary} />
+                  ) : (
+                    <TouchableOpacity
+                      style={{
+                        width: "100%",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
+                      onPress={() => {
+                        this.setState({ refreshing: true }, async () => {
+                          try {
+                            await refetch();
+                            this.setState({ refreshing: false });
+                          } catch (error) {
+                            window.console.error(
+                              `failed to  refetch interactions: ${error}`
+                            );
+                          }
+                        });
+                      }}
+                    >
+                      <Icon.Ionicons
+                        name="ios-refresh"
+                        size={19}
+                        color={theme.primary}
+                      />
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          color: theme.primary,
+                          marginLeft: 10
+                        }}
+                      >
+                        刷新
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                }}
                 onEndReached={async () => {
-                  this.setState({ loadFinished: false });
                   try {
                     await fetchMore({
                       variables: {
@@ -131,28 +159,40 @@ export class InteractionsView extends React.Component<Props, State> {
                       },
                       // @ts-ignore
                       updateQuery: (previousResult, { fetchMoreResult }) => {
-                        const newData = lodash.isUndefined(fetchMoreResult)
-                          ? []
-                          : fetchMoreResult.interactions.interactions;
-
-                        this.setState({
-                          loadFinished: newData.length < this.pageLimit
-                        });
-
                         if (
-                          newData.length > 0 &&
-                          lodash.findIndex(
-                            previousResult.interactions.interactions,
-                            (interaction: Interaction) =>
-                              interaction.id === newData[0].id
-                          ) < 0
+                          lodash.isUndefined(fetchMoreResult) ||
+                          fetchMoreResult.interactions.interactions.length === 0
                         ) {
-                          previousResult.interactions.interactions = [
-                            ...previousResult.interactions.interactions,
-                            ...newData
-                          ];
+                          this.setState({ loadFinished: true });
+                          return previousResult;
+                        } else {
+                          const moreData =
+                            fetchMoreResult.interactions.interactions;
+                          if (
+                            moreData.length > 0 &&
+                            lodash.findIndex(
+                              previousResult.interactions.interactions,
+                              (interaction: Interaction) =>
+                                interaction.id === moreData[0].id
+                            ) < 0
+                          ) {
+                            const newData = [
+                              ...previousResult.interactions.interactions,
+                              ...moreData
+                            ];
+                            fetchMoreResult.interactions.interactions = newData;
+                            if (
+                              newData.length ===
+                              fetchMoreResult.interactions.count
+                            ) {
+                              this.setState({ loadFinished: true });
+                            }
+                            return fetchMoreResult;
+                          } else {
+                            this.setState({ loadFinished: true });
+                            return previousResult;
+                          }
                         }
-                        return previousResult;
                       }
                     });
                   } catch (error) {
