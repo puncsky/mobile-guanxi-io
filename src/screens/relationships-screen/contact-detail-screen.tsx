@@ -11,14 +11,19 @@ import { InteractionsView } from "./interactions-view";
 import { ReminderTimer } from "./reminder-timer";
 type Props = {
   navigation: NavigationScreenProp<String>;
+  userId: string;
 };
 
-export const ContactDetailScreen = connect(() => {
-  return {};
-})(
+export const ContactDetailScreen = connect(
+  (state: { base: { userId: string } }) => {
+    return {
+      userId: state.base.userId
+    };
+  }
+)(
   class ContactDetailScreenInner extends React.Component<Props> {
     public render(): JSX.Element {
-      const { navigation } = this.props;
+      const { navigation, userId } = this.props;
       const contact = navigation.getParam("item");
       const styles = getStyles();
       return (
@@ -73,7 +78,10 @@ export const ContactDetailScreen = connect(() => {
             </View>
             <Text style={styles.reminderText}>Reminder</Text>
             <ReminderTimer dateText="Sun Apr 5, 2020" dayText="1D" />
-            <InteractionsView contactId={contact._id} isSelf={true} />
+            <InteractionsView
+              contactId={contact._id}
+              isSelf={contact._id === userId}
+            />
           </View>
         </View>
       );
