@@ -108,45 +108,49 @@ export class InteractionsView extends React.Component<Props, State> {
                   );
                 }}
                 ListHeaderComponent={() => {
-                  return refreshing ? (
-                    <ActivityIndicator size="large" color={theme.primary} />
-                  ) : (
-                    <TouchableOpacity
-                      style={{
-                        width: "100%",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center"
-                      }}
-                      onPress={() => {
-                        this.setState({ refreshing: true }, async () => {
-                          try {
-                            await refetch();
-                            this.setState({ refreshing: false });
-                          } catch (error) {
-                            window.console.error(
-                              `failed to  refetch interactions: ${error}`
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      <Icon.Ionicons
-                        name="ios-refresh"
-                        size={19}
-                        color={theme.primary}
-                      />
-                      <Text
+                  if (refreshing) {
+                    return (
+                      <ActivityIndicator size="large" color={theme.primary} />
+                    );
+                  } else {
+                    return listData.length > 0 ? (
+                      <TouchableOpacity
                         style={{
-                          fontSize: 14,
-                          color: theme.primary,
-                          marginLeft: 10
+                          width: "100%",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                        onPress={() => {
+                          this.setState({ refreshing: true }, async () => {
+                            try {
+                              await refetch();
+                              this.setState({ refreshing: false });
+                            } catch (error) {
+                              window.console.error(
+                                `failed to  refetch interactions: ${error}`
+                              );
+                            }
+                          });
                         }}
                       >
-                        刷新
-                      </Text>
-                    </TouchableOpacity>
-                  );
+                        <Icon.Ionicons
+                          name="ios-refresh"
+                          size={19}
+                          color={theme.primary}
+                        />
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            color: theme.primary,
+                            marginLeft: 10
+                          }}
+                        >
+                          {i18n.t("refresh")}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : null;
+                  }
                 }}
                 onEndReached={async () => {
                   try {

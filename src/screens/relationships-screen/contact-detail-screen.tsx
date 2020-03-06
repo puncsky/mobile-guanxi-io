@@ -83,7 +83,10 @@ export const ContactDetailScreen = connect(
               <Text style={styles.reminderText}>Reminder</Text>
               <ReminderTimer dateText="Sun Apr 5, 2020" dayText="1D" />
             </View>
-            <InteractionsView contactId={contact._id} isSelf={true} />
+            <InteractionsView
+              contactId={contact._id}
+              isSelf={contact._id === userId}
+            />
           </ScrollView>
         </View>
       );
