@@ -282,7 +282,11 @@ function deleteAction(
 
 const getStyles = () =>
   StyleSheet.create({
-    container: { backgroundColor: theme.white, paddingVertical: 10 },
+    container: {
+      backgroundColor: theme.white,
+      paddingVertical: 10,
+      paddingHorizontal: 15
+    },
     timestamp: { fontSize: 14, color: theme.text01 },
     content: {
       fontSize: 16,

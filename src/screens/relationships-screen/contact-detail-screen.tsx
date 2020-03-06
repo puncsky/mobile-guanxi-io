@@ -1,6 +1,6 @@
 import * as Icon from "@expo/vector-icons";
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
 import { NavigationBar } from "../../common/navigation-bar";
@@ -29,60 +29,65 @@ export const ContactDetailScreen = connect(
       return (
         <View style={styles.background}>
           <NavigationBar title={contact.name} showBack />
-          <View style={[styles.background, styles.pad]}>
-            <ContactHeader item={contact} />
-
-            <View style={{ flexDirection: "row", marginTop: 20 }}>
-              <View style={[styles.iconCircleBg, { marginRight: 5 }]}>
+          <ScrollView style={styles.background}>
+            <View style={[styles.pad, { backgroundColor: theme.white }]}>
+              <ContactHeader item={contact} />
+              <View style={{ flexDirection: "row", marginTop: 20 }}>
+                <View style={[styles.iconCircleBg, { marginRight: 5 }]}>
+                  <Icon.Ionicons
+                    name="logo-twitter"
+                    size={20}
+                    color={theme.black40}
+                  />
+                </View>
+                <View style={styles.iconCircleBg}>
+                  <Icon.AntDesign name="plus" size={28} color={theme.black40} />
+                </View>
+                <View style={{ flex: 1 }} />
                 <Icon.Ionicons
-                  name="logo-twitter"
-                  size={20}
-                  color={theme.black40}
+                  name="md-search"
+                  size={32}
+                  color={theme.primary}
                 />
               </View>
-              <View style={styles.iconCircleBg}>
-                <Icon.AntDesign name="plus" size={28} color={theme.black40} />
+
+              <Text style={[styles.primary14Text, { marginTop: 10 }]}>
+                1404744502:http://link.gc.apple.com/players/
+              </Text>
+              <Text style={[styles.primary14Text, { marginBottom: 40 }]}>
+                G:1404744502
+              </Text>
+
+              <ContactActions item={contact} />
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 40
+                }}
+              >
+                <View style={styles.bgWithBorder}>
+                  <ReminderTimer dateText="Sun Apr 5" dayText="1D" />
+                  <View style={styles.smallSeparator} />
+                  <Icon.AntDesign name="plus" size={15} color={theme.black80} />
+                </View>
+                <View style={{ flex: 1 }} />
+                <View style={[styles.bgWithBorder, { marginRight: 5 }]}>
+                  <Text style={styles.primary14Text}>Notes</Text>
+                </View>
+                <View style={styles.bgWithBorder}>
+                  <Text style={styles.primary14Text}>Tags</Text>
+                </View>
               </View>
-              <View style={{ flex: 1 }} />
-              <Icon.Ionicons name="md-search" size={32} color={theme.primary} />
+              <Text style={styles.reminderText}>Reminder</Text>
+              <ReminderTimer dateText="Sun Apr 5, 2020" dayText="1D" />
             </View>
-
-            <Text style={[styles.primary14Text, { marginTop: 10 }]}>
-              1404744502:http://link.gc.apple.com/players/
-            </Text>
-            <Text style={[styles.primary14Text, { marginBottom: 40 }]}>
-              G:1404744502
-            </Text>
-
-            <ContactActions item={contact} />
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 40
-              }}
-            >
-              <View style={styles.bgWithBorder}>
-                <ReminderTimer dateText="Sun Apr 5" dayText="1D" />
-                <View style={styles.smallSeparator} />
-                <Icon.AntDesign name="plus" size={15} color={theme.black80} />
-              </View>
-              <View style={{ flex: 1 }} />
-              <View style={[styles.bgWithBorder, { marginRight: 5 }]}>
-                <Text style={styles.primary14Text}>Notes</Text>
-              </View>
-              <View style={styles.bgWithBorder}>
-                <Text style={styles.primary14Text}>Tags</Text>
-              </View>
-            </View>
-            <Text style={styles.reminderText}>Reminder</Text>
-            <ReminderTimer dateText="Sun Apr 5, 2020" dayText="1D" />
             <InteractionsView
               contactId={contact._id}
               isSelf={contact._id === userId}
             />
-          </View>
+          </ScrollView>
         </View>
       );
     }
