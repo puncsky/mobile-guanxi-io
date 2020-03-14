@@ -17,6 +17,7 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import AutoHeightWebView from "react-native-autoheight-webview";
 import { ActiveOpacity } from "../../common/active-opacity";
 import { apolloClient } from "../../common/apollo-client";
 import {
@@ -24,6 +25,7 @@ import {
   GET_INTERACTIONS,
   UPSERT_INTERACTION
 } from "../../common/gqls";
+import { getHtml, mdit } from "../../common/mdit";
 import { theme } from "../../common/theme";
 import i18n from "../../translations";
 import { Interaction } from "../../types/interactions";
@@ -43,13 +45,21 @@ export function InteractionItem({
   const [content, setContent] = useState(item.content);
   const [timestamp, setTimestamp] = useState(item.timestamp);
   const [showDatePicker, setShowDatePicker] = useState(false);
-
   return (
     <View style={styles.container}>
       <Text style={styles.timestamp}>
         {moment(item.timestamp).format("YYYY-MM-DD HH:mm")}
       </Text>
-      <Text style={styles.content}>{item.content}</Text>
+
+      <AutoHeightWebView
+        originWhitelist={["*"]}
+        style={{ width: "100%" }}
+        source={{ html: getHtml(mdit.render(`${item.content}`)) }}
+        scalesPageToFit={true}
+        scrollEnabledWithZoomedin={false}
+        overScrollMode={"never"}
+        scrollEnabled={false}
+      />
       <View style={styles.bottomButtons}>
         <TouchableOpacity
           activeOpacity={ActiveOpacity.value}
@@ -291,8 +301,8 @@ const getStyles = () =>
     content: {
       fontSize: 16,
       color: theme.text01,
-      marginTop: 5,
-      fontWeight: "bold"
+      marginTop: 8,
+      marginBottom: 8
     },
     bottomButtons: {
       flexDirection: "row",

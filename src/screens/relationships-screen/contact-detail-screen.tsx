@@ -5,7 +5,6 @@ import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
 import { NavigationBar } from "../../common/navigation-bar";
 import { theme } from "../../common/theme";
-import { ContactActions } from "./contact-actions";
 import { ContactHeader } from "./contact-header";
 import { InteractionsView } from "./interactions-view";
 import { ReminderTimer } from "./reminder-timer";
@@ -32,33 +31,33 @@ export const ContactDetailScreen = connect(
           <ScrollView style={styles.background}>
             <View style={[styles.pad, { backgroundColor: theme.white }]}>
               <ContactHeader item={contact} />
-              <View style={{ flexDirection: "row", marginTop: 20 }}>
-                <View style={[styles.iconCircleBg, { marginRight: 5 }]}>
-                  <Icon.Ionicons
-                    name="logo-twitter"
-                    size={20}
-                    color={theme.black40}
-                  />
-                </View>
-                <View style={styles.iconCircleBg}>
-                  <Icon.AntDesign name="plus" size={28} color={theme.black40} />
-                </View>
-                <View style={{ flex: 1 }} />
-                <Icon.Ionicons
-                  name="md-search"
-                  size={32}
-                  color={theme.primary}
-                />
-              </View>
+              {/*<View style={{ flexDirection: "row", marginTop: 20 }}>*/}
+              {/*  <View style={[styles.iconCircleBg, { marginRight: 5 }]}>*/}
+              {/*    <Icon.Ionicons*/}
+              {/*      name="logo-twitter"*/}
+              {/*      size={20}*/}
+              {/*      color={theme.black40}*/}
+              {/*    />*/}
+              {/*  </View>*/}
+              {/*  <View style={styles.iconCircleBg}>*/}
+              {/*    <Icon.AntDesign name="plus" size={28} color={theme.black40} />*/}
+              {/*  </View>*/}
+              {/*  <View style={{ flex: 1 }} />*/}
+              {/*  <Icon.Ionicons*/}
+              {/*    name="md-search"*/}
+              {/*    size={32}*/}
+              {/*    color={theme.primary}*/}
+              {/*  />*/}
+              {/*</View>*/}
 
-              <Text style={[styles.primary14Text, { marginTop: 10 }]}>
-                1404744502:http://link.gc.apple.com/players/
-              </Text>
-              <Text style={[styles.primary14Text, { marginBottom: 40 }]}>
-                G:1404744502
-              </Text>
+              {/*<Text style={[styles.primary14Text, { marginTop: 10 }]}>*/}
+              {/*  1404744502:http://link.gc.apple.com/players/*/}
+              {/*</Text>*/}
+              {/*<Text style={[styles.primary14Text, { marginBottom: 40 }]}>*/}
+              {/*  G:1404744502*/}
+              {/*</Text>*/}
 
-              <ContactActions item={contact} />
+              {/*<ContactActions item={contact} />*/}
 
               <View
                 style={{
