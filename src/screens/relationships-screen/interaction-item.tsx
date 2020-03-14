@@ -35,7 +35,7 @@ export function InteractionItem({
       <AutoHeightWebView
         originWhitelist={["*"]}
         style={{ width: "100%" }}
-        source={{ html: getHtml(mdit.render(`${item.content}`)) }}
+        source={{ html: getHtml(mdit.render(`${item.content}<br/><br/>`)) }}
         scalesPageToFit={true}
         scrollEnabledWithZoomedin={false}
         overScrollMode={"never"}
