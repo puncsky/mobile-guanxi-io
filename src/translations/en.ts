@@ -77,5 +77,6 @@ export const en = {
   confirm: "Confirm",
   reSelect: "Select again",
   noteHolder: "Enter your comment here...",
-  open: "Open"
+  open: "Open",
+  setReminder: "Set Reminder"
 };

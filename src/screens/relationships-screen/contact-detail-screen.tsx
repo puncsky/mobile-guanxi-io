@@ -1,9 +1,9 @@
-import * as Icon from "@expo/vector-icons";
 import * as React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 import { connect } from "react-redux";
 import { NavigationBar } from "../../common/navigation-bar";
+import { ReminderSetupShortcut } from "../../common/reminder-setup-shortcut";
 import { theme } from "../../common/theme";
 import { ContactHeader } from "./contact-header";
 import { InteractionsView } from "./interactions-view";
@@ -59,29 +59,12 @@ export const ContactDetailScreen = connect(
 
               {/*<ContactActions item={contact} />*/}
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 40
-                }}
-              >
-                <View style={styles.bgWithBorder}>
-                  <ReminderTimer dateText="Sun Apr 5" dayText="1D" />
-                  <View style={styles.smallSeparator} />
-                  <Icon.AntDesign name="plus" size={15} color={theme.black80} />
-                </View>
-                <View style={{ flex: 1 }} />
-                <View style={[styles.bgWithBorder, { marginRight: 5 }]}>
-                  <Text style={styles.primary14Text}>Notes</Text>
-                </View>
-                <View style={styles.bgWithBorder}>
-                  <Text style={styles.primary14Text}>Tags</Text>
-                </View>
-              </View>
+              <ReminderSetupShortcut />
+
               <Text style={styles.reminderText}>Reminder</Text>
               <ReminderTimer dateText="Sun Apr 5, 2020" dayText="1D" />
             </View>
+
             <InteractionsView
               contactId={contact._id}
               isSelf={contact._id === userId}
@@ -123,16 +106,6 @@ const getStyles = () =>
       textAlign: "center"
     },
     primary14Text: { color: theme.primary, fontSize: 14 },
-    bgWithBorder: {
-      height: 40,
-      borderRadius: 20,
-      borderColor: theme.black40,
-      borderWidth: 1,
-      paddingHorizontal: 10,
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "row"
-    },
     iconCircleBg: {
       height: 36,
       width: 36,
@@ -141,11 +114,5 @@ const getStyles = () =>
       justifyContent: "center",
       borderColor: theme.black40,
       borderWidth: 1
-    },
-    smallSeparator: {
-      height: 20,
-      width: 1,
-      backgroundColor: theme.separator,
-      marginHorizontal: 10
     }
   });
