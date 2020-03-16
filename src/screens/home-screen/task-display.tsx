@@ -29,7 +29,11 @@ export class TaskDisplay extends React.Component<Props, State> {
   render(): JSX.Element {
     const styles = getStyles();
     const { selectedIndex, tasks } = this.state;
-    const dayTasks = handleTasks(tasks);
+    const formatTasks = tasks.map(task => {
+      task.due = new Date(task.due);
+      return task;
+    });
+    const dayTasks = handleTasks(formatTasks);
     const undoneCount = dayTasks[selectedIndex].tasks.filter(task => !task.done)
       .length;
 

@@ -1,9 +1,21 @@
 import * as React from "react";
 import { useState } from "react";
-import { Modal, Text, TouchableHighlight, View } from "react-native";
+import { Query, QueryResult } from "react-apollo";
+import {
+  ActivityIndicator,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View
+} from "react-native";
 import { NavigationScreenProp } from "react-navigation";
+import { GET_USER_TASKS } from "../../common/gqls";
 import { NavigationBar } from "../../common/navigation-bar";
+import { navigationBarHeight, ScreenHeight } from "../../common/screen-util";
+import { theme } from "../../common/theme";
 import i18n from "../../translations";
+import { Task } from "../../types/task";
 import { TaskDisplay } from "./task-display";
 type State = {
   shouldDisplayModal: boolean;
@@ -19,15 +31,24 @@ export class HomeScreen extends React.Component<Props, State> {
   };
 
   public render(): JSX.Element {
+    const styles = getStyles();
     return (
       <View>
         <NavigationBar title={i18n.t("home")} />
-        <TaskDisplay
-          tasks={[
-            { id: "12", due: new Date(), done: false, title: "test1" },
-            { id: "1234", due: new Date(), done: false, title: "test2" }
-          ]}
-        />
+        <Query query={GET_USER_TASKS} variables={{}}>
+          {({ data, loading }: QueryResult<{ getUserTasks: Array<Task> }>) => {
+            if (loading) {
+              return (
+                <View style={styles.loadingContainer}>
+                  <ActivityIndicator size="large" color={theme.primary} />
+                </View>
+              );
+            }
+            const tasks = data ? data.getUserTasks : [];
+            return <TaskDisplay tasks={tasks} />;
+          }}
+        </Query>
+
         {/* <TaskModal /> */}
       </View>
     );
@@ -83,3 +104,13 @@ export function TaskModal(): JSX.Element {
     </View>
   );
 }
+
+const getStyles = () =>
+  StyleSheet.create({
+    loadingContainer: {
+      backgroundColor: theme.white,
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: ScreenHeight - navigationBarHeight - 100
+    }
+  });
