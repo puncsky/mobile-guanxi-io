@@ -59,7 +59,6 @@ export const ADD_PUSH_TOKEN = gql`
 `;
 
 //relationship
-
 export const GET_CONTACTS = gql`
   query contacts($offset: Float, $limit: Float) {
     contacts(offset: $offset, limit: $limit) {
@@ -101,7 +100,6 @@ export const INTERACTION_COUNT = gql`
   }
 `;
 
-//{offset: 0, limit: 5, isSelf: true}
 export const GET_INTERACTIONS = gql`
   query interactions(
     $contactId: String
@@ -126,13 +124,6 @@ export const GET_INTERACTIONS = gql`
   }
 `;
 
-// {"upsertInteraction":{
-//   "id": "5e5cdc21f77f2800457e61eb",
-//   "content": "test1234",
-// 	"relatedHumans": ["5e489f55fffeb700341ba7c8", "5e489f55fffeb700341ba7c8"],
-//   "public": false,
-//   "timestamp": "2020-03-05T10:15:34.747Z"}
-// }
 export const UPSERT_INTERACTION = gql`
   mutation upsertInteraction($upsertInteraction: UpsertInteraction!) {
     upsertInteraction(upsertInteraction: $upsertInteraction) {
@@ -145,9 +136,45 @@ export const UPSERT_INTERACTION = gql`
   }
 `;
 
-//{"id":  "5e5cdc21f77f2800457e61eb"}
 export const DELETE_NOTE = gql`
   mutation deleteNote($id: String!) {
     deleteNote(deleteNoteInput: { _id: $id })
+  }
+`;
+
+export const GET_USER_TASKS = gql`
+  query getUserTasks {
+    getUserTasks {
+      id
+      title
+      done
+      contacts
+      rrule
+      due
+      ownerId
+    }
+  }
+`;
+
+//{
+//   "upsertTaskInput":{
+//     "title": "test1",
+//     "done": false,
+//     "due": "2020-03-17T07:09:50.426Z",
+//     "rrule": "",
+//     "contacts": []
+//   }
+// }
+export const UPSERT_TASK = gql`
+  mutation upsertTask($upsertTaskInput: UpsertTaskInput!) {
+    upsertTask(upsertTaskInput: $upsertTaskInput) {
+      id
+      title
+      done
+      contacts
+      rrule
+      due
+      ownerId
+    }
   }
 `;

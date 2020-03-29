@@ -1,12 +1,12 @@
 //@ts-ignore
 import jwtDecode from "jwt-decode";
 import React, { Component } from "react";
-import { Dimensions, View, WebView } from "react-native";
+import { Dimensions, View } from "react-native";
 import { connect } from "react-redux";
 import { analytics } from "../../common/analytics";
 import { getEndpoint, headers } from "../../common/request";
 import { actionUpdateReduxState } from "../../common/root-reducer";
-
+import { WebView } from "react-native-webview";
 const { height } = Dimensions.get("window");
 
 type State = {};
@@ -47,6 +47,7 @@ export const LoginWebView = connect(
               marginTop: 0,
               height: height - 24
             }}
+            //@ts-ignore
             useWebKit={true}
             onMessage={async event => {
               try {

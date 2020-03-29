@@ -7,7 +7,7 @@ import { DayTask, Task } from "../types/task";
 export function getFormatDateStr(dayTask: DayTask): string {
   moment.locale(i18n.locale === "zh" ? "zh-cn" : "en-gb");
   if (dayTask.date == null) {
-    return "null";
+    return dayTask.title;
   } else {
     return moment(dayTask.date)
       .format("llll")
